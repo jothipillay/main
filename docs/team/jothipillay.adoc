@@ -3,26 +3,40 @@
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Project: Pocket Project CLI Application
+== Pocket Project CLI Application
 
 ---
 
 == Overview
 
-=== About the application
+=== About The Application
 Pocket Project is a desktop application used to aid software engineering project managers in keeping track
 of both employees and projects under their charge. The main mode of interaction is through the use of a Command-Line
 Interface (CLI) with certain specific features accessible by mouse as well. The code is written in Java and has a GUI
 created with JavaFX. General project managers can use this application as well but not all features will be necessarily
 relevant.
 
-=== Our inspiration behind this project
+=== Our Inspiration Behind This Project
+We sought ways to improve efficiency in administrative duties faced by software engineering
+project managers who are in charge of a large number of employees and projects.
 
+=== About Our Team
+This application was built my team which consisted of Daryl Tan, Jeff Gan, Lin Dehui and I. We built this as
+part of our Software Engineering Project Module (CS2103T), which we enrolled in during our 2nd year in NUS,
+while pursuing a Bachelor of Computing in Computer Science.
 
+== Summary Of My Contributions
+=== Major Enhancement
+==== Overview of feature
+* In our application, a few commands involve the use of calendar dates. Examples of such
+commands include the setting of deadlines to projects and the setting of dates to indicate the
+completion of a particular milestone, task or project.
+* Added the ability to allow the user to input dates in both a standard and flexible manner while ensuring
+the integrity of the chosen date.
 
+==== What it does
+* The basic format allows the user to key in a date in the form of DD/MM/YYYY
+* The flexible
 
-
-
-
-
-== Summary of contributions
+Whenever a user needs to key in a date component with relation to other commands,
+on top of b
