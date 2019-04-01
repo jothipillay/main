@@ -31,12 +31,21 @@ while pursuing a Bachelor of Computing in Computer Science.
 * In our application, a few commands involve the use of calendar dates. Examples of such
 commands include the setting of deadlines to projects and the setting of dates to indicate the
 completion of a particular milestone, task or project.
-* Added the ability to allow the user to input dates in both a standard and flexible manner while ensuring
+* I added the ability to allow the user to input dates in both a standard and flexible manner while ensuring
 the integrity of the chosen date.
 
 ==== What it does
-* The basic format allows the user to key in a date in the form of DD/MM/YYYY
-* The flexible
+* The application will accept either a standard format or a flexible format input from the user when it
+expects a date field. The application is able to differenciate without the user explicitly selecting the format that
+he/she is going to input.
+* The standard format allows the user to key in a date in the form of `DD/MM/YYYY`.
+* The flexible format allows the user to give an input with relation to the current date.
+It accepts a range of inputs which can be summarized as follows:
+** The user can key in common terms such as `today`, `tomorrow` and `yesterday`, which will then
+be converted to the `DD/MM/YYYY` format.
+** The user can also aim to choose a date with relation to the current week. The input is as simple
+`this week [DAY_OF_WEEK]` where the `[DAY_OF_WEEK]` takes an integer in the range of 1 to 7 which
+corresponds to Monday to Sunday respectively.
 
 Whenever a user needs to key in a date component with relation to other commands,
 on top of b
