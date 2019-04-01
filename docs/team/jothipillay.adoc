@@ -1,0 +1,28 @@
+= Jothinandan Pillay - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== Project: Pocket Project CLI Application
+
+---
+
+== Overview
+
+=== About the application
+Pocket Project is a desktop application used to aid software engineering project managers in keeping track
+of both employees and projects under their charge. The main mode of interaction is through the use of a Command-Line
+Interface (CLI) with certain specific features accessible by mouse as well. The code is written in Java and has a GUI
+created with JavaFX. General project managers can use this application as well but not all features will be necessarily
+relevant.
+
+=== Our inspiration behind this project
+
+
+
+
+
+
+
+
+== Summary of contributions
