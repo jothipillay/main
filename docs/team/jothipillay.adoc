@@ -36,7 +36,7 @@ the integrity of the chosen date.
 
 ==== What it does
 * The application will accept either a standard format or a flexible format input from the user when it
-expects a date field. The application is able to differenciate without the user explicitly selecting the format that
+expects a date field. The application is able to differentiate without the user explicitly selecting the format that
 he/she is going to input.
 * The standard format allows the user to key in a date in the form of `DD/MM/YYYY`.
 * The flexible format allows the user to give an input with relation to the current date.
@@ -45,7 +45,44 @@ It accepts a range of inputs which can be summarized as follows:
 be converted to the `DD/MM/YYYY` format.
 ** The user can also aim to choose a date with relation to the current week. The input is as simple
 `this week [DAY_OF_WEEK]` where the `[DAY_OF_WEEK]` takes an integer in the range of 1 to 7 which
-corresponds to Monday to Sunday respectively.
+corresponds to Monday to Sunday respectively. Therefore, to choose the current week's Thursday as the
+target date, the user can simply key `this week 4`. Similarly users can target both the following and previous
+weeks by replacing the `this` keyword with `next` and `last` respectively.
+** The user can also aim to choose a date with relation to the current month. The input is as simple
+`this month [DAY_OF_MONTH]` where the `[DAY_OF_MONTH]` takes an integer corresponding to the day in the
+target month. Therefore, to choose the 25th of the current month as the
+target date, the user can simply key `this month 25`. Similarly users can target both the following and previous
+months by replacing the `this` keyword with `next` and `last` respectively.
+** Once the target date in chosen, the validity and accuracy of the date is tested. Should the user target
+invalid dates such as `31/04/2019`, it will be rejected as the month of April only has 30 days.
+** Additionally, leap years are also taken into account when processing the validity of the date.
+So, as 2020 is a leap year, `29/02/2020` is considered a valid input but `29/02/2019` will be rejected
+as 2019 is not a leap year.
+
+==== Justification
+* (To be filled in)
+
+==== Highlights
+* (To be filled in)
+
+=== Minor Enhancement 1
+==== Overview of feature
+* I implemented the base ability and foundation for various components (
+
+
+
+
+
+****
+Some content here
+****
+
+
+****
+Some content here
+****
+
+
 
 Whenever a user needs to key in a date component with relation to other commands,
 on top of b
