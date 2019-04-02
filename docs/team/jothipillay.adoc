@@ -44,12 +44,12 @@ It accepts a range of inputs which can be summarized as follows:
 ** The user can key in common terms such as `today`, `tomorrow` and `yesterday`, which will then
 be converted to the `DD/MM/YYYY` format.
 ** The user can also aim to choose a date with relation to the current week. The input is as simple
-`this week [DAY_OF_WEEK]` where the `[DAY_OF_WEEK]` takes an integer in the range of 1 to 7 which
+`this week DAY_OF_WEEK` where the `DAY_OF_WEEK` takes an integer in the range of 1 to 7 which
 corresponds to Monday to Sunday respectively. Therefore, to choose the current week's Thursday as the
 target date, the user can simply key `this week 4`. Similarly users can target both the following and previous
 weeks by replacing the `this` keyword with `next` and `last` respectively.
 ** The user can also aim to choose a date with relation to the current month. The input is as simple
-`this month [DAY_OF_MONTH]` where the `[DAY_OF_MONTH]` takes an integer corresponding to the day in the
+`this month DAY_OF_MONTH` where the `DAY_OF_MONTH` takes an integer corresponding to the day in the
 target month. Therefore, to choose the 25th of the current month as the
 target date, the user can simply key `this month 25`. Similarly users can target both the following and previous
 months by replacing the `this` keyword with `next` and `last` respectively.
@@ -60,29 +60,146 @@ So, as 2020 is a leap year, `29/02/2020` is considered a valid input but `29/02/
 as 2019 is not a leap year.
 
 ==== Justification
-* (To be filled in)
+* This feature improves the product significantly because a user can be more efficient in inputting dates
+that are used by multiple commands. (to be edited)
 
 ==== Highlights
-* (To be filled in)
+* This enhancement affects existing commands and commands to be added in future. It required an in-depth
+analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+(to be edited)
 
 === Minor Enhancement 1
 ==== Overview of feature
-* I implemented the base ability and foundation for various components (
+* I programmed the ability to add an employee or project to the Pocket Project application.
+containing certain personal details such as
+phone, email and add a project containing information such as client and deadline to the entire application. Such
+commands created the foundations for the rest of the application and took the format of `add employee ...` and `add
+project...`
+* I implemented the base ability and foundation for various components to be added
+into a project through the `addto PROJ_NAME ...` command. I created the capability for
+employees and milestones to be added to a particular project and the base `addto` command
+was further used by my fellow team mates who programmed the ability to add tasks and user stories
+to a particular project.
 
+==== What it does
+* This feature allows the storage of employees in the application itself. Focusing, on the adding
+of employees, it also allows certain key personal details to be keyed in such as an employee's phone, email and GitHub account. Such details,
+although trivial at first glance, is useful in helping the manager in certain administrative procedures, especially
+when the manager needs to contact an employee or perhaps review his/her work on their GitHub account.
+* Similarly, this feature also allows the storage of projects in the application itself. When initially creating
+a project, the user has to also input key details such as the name of the project, the client that the project is done
+for and the deadline of the project. The project is also set up with a default description that can be edited afterwards.
+I then implemented the ability to add employees and key milestones into the project. A milestone is a key target indicator
+that segments our project lifeline into the different stages of production
 
+==== Example usage scenarios
+====== Add an employee or project to the application: `add`
 
+* Adds an employee to the list of employees.
 
+** Format: `add employee n/NAME p/PHONE_NUMBER e/EMAIL g/GITHUB [s/SKILL]...`
 
-****
-Some content here
-****
+* Examples:
 
+** `add employee n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+** `add employee n/Betsy Crowe e/betsycrowe@example.com a/Newgate Prison p/1234567 s/HTML`
 
-****
-Some content here
-****
+|===
+|image:ug-notepadpencil.png[width="40"]|An employee can have any number of skills (including 0).
+|===
 
+* Adds a project to the list of projects.
 
+** Format: `add project n/NAME d/DEADLINE c/CLIENT_NAME`
 
-Whenever a user needs to key in a date component with relation to other commands,
-on top of b
+* Examples:
+
+** `add project n/Apollo d/12/12/2019 c/FairPrice`
+** `add project n/Xtreme c/John Smith d/13/04/2020`
+
+|===
+|image:ug-lightbulb.png[width="50"]|Users can simply use 'e' as an alias for 'employee' and 'p' as an alias for 'project'
+while keying in a command into the CLI.
+|===
+
+====== Add an employee/milestone to a project : `addto`
+
+==== Add an employee to a project: `addto employee`
+
+* Adds an employee to a project.
+
+** Format: `addto PROJECT_NAME employee EMPLOYEE_INDEX`
+
+|===
+|image:ug-notepadpencil.png[width="40"]|Adds the employee at the specified `INDEX`.
+The index refers to the index number (one-based) shown in the displayed list of employees.
+|===
+
+|===
+|image:ug-exclamation.png[width="50"]|The index must be a *positive integer* and cannot be larger than the size of the list.
+|===
+
+* Examples:
+
+** `list employees` +
+`addto Apollo employee 2` +
+Adds the 2nd person in the displayed employee list to project "Apollo".
+
+** `find employee John Han` +
+`addto Apollo employee 5` +
+Adds the 5th person in the displayed employee list to project "Apollo".
+
+==== Add a milestone to a project: `addto milestone`
+
+* Adds a milestone to a project.
+
+** Format: `addto PROJECT_NAME milestone MS_DETAILS MS_DATE`
+
+|===
+|image:ug-exclamation.png[width="50"]| Date must be of the format DD/MM/YYYY (To be edited)
+|===
+
+* Examples:
+
+** `addto Apollo milestone Completed UI for program 23/11/2015` +
+Milestone added to project "Apollo".
+
+|===
+|image:ug-lightbulb.png[width="50"]|Users can simply use 'e' as an alias for 'employee' and 'p' as an alias for 'project'
+while keying in a command into the CLI.
+|===
+
+==== Justification
+* This feature improves the product significantly because a user can be more efficient in inputting dates
+that are used by multiple commands. (to be edited)
+
+==== Highlights
+* This enhancement affects existing commands and commands to be added in future. It required an in-depth
+analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+(to be edited)
+
+==== Credits
+* The code to implement the addition of employees to the Pocket Project application was modified from the
+Address Book base code provided done by Team SE-EDU.
+
+=== Minor Enhancement 2
+==== Overview of feature
+* Made the Pocket Project Application logo making use of design skills.
+
+=== Contributions to the User Guide
+* I contributed to the following sections in the User Guide
+** Section 1: Introduction
+** Section 2: Background Information
+** Section 3.3: Symbols
+** Section 3.4: Glossary
+** Section 4: Features
+
+=== Contributions to the Developer Guide
+* I contributed to the following sections in the Developer Guide
+** Section 1: Introduction
+** Section 2: Background Information
+** Section 3: Before We Begin
+** Section 6.1: Add employee/milestone/user story to projects feature
+** Appendix A: Product Scope
+** Appendix B: User Stories
+
