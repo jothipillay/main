@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EMPLOYEES;
 
 import java.util.Collections;
@@ -31,11 +29,9 @@ public class EditEmployeeCommand extends EditCommand {
 
     public static final String EDIT_EMPLOYEE_KEYWORD = "employee";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the employee identified "
-        + "by the index number used in the displayed employee list. "
-        + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_PHONE + "91234567 "
-        + PREFIX_EMAIL + "johndoe@example.com";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " " + EDIT_EMPLOYEE_KEYWORD + " INDEX [n/NAME] [p/PHONE] "
+        + "[e/EMAIL] [g/GITHUB] [s/SKILLS]"
+        + ": edits the employee/milestone/user story in the selected project.\n";
 
     public static final String MESSAGE_EDIT_EMPLOYEE_SUCCESS = "Edited Employee: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

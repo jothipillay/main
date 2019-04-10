@@ -80,6 +80,17 @@ public class UniqueMilestoneList implements Iterable<Milestone> {
         }
     }
 
+    /**
+     * Replace the {@code targetMilestone} in the list with the new {@code milestone}
+     */
+    public void setMilestone(Milestone targetMilestone, Milestone milestone) {
+        if (!this.contains(targetMilestone)) {
+            throw new MilestoneNotFoundException();
+        }
+        remove(targetMilestone);
+        add(milestone);
+    }
+
     public void setMilestones(UniqueMilestoneList replacement) {
         requireNonNull(replacement);
         internalList.setAll(replacement.internalList);

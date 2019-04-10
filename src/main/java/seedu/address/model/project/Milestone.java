@@ -12,7 +12,7 @@ import seedu.address.model.util.PocketProjectDate;
 public class Milestone {
 
     public static final String MESSAGE_CONSTRAINTS = "The milestone info must not be empty or consisting of only spaces"
-            + " and the date given must be in DD/MM/YYYY format";
+        + " and the date given must be in DD/MM/YYYY format";
     public static final String MESSAGE_INVALID_STRING = "The milestone info must not be empty or consisting "
         + "of only spaces";
 
@@ -68,6 +68,16 @@ public class Milestone {
     }
 
     /**
+     * Returns a new milestone which has its {@code milestone} and {@code date} edited.
+     * {@code projectTasks} remains unchanged
+     */
+    public Milestone editMilestone (Description milestone, PocketProjectDate date) {
+        return new Milestone(milestone, date, this.projectTasks);
+    }
+
+
+
+    /**
      * Returns true if both milestones have the same name and date.
      * This defines a weaker notion of equality between two milestones.
      */
@@ -83,10 +93,10 @@ public class Milestone {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Milestone // instanceof handles nulls
-                && milestone.equals(((Milestone) other).milestone)
-                && date.equals(((Milestone) other).date)
-                && projectTasks.equals(((Milestone) other).projectTasks)); // state check
+            || (other instanceof Milestone // instanceof handles nulls
+            && milestone.equals(((Milestone) other).milestone)
+            && date.equals(((Milestone) other).date)
+            && projectTasks.equals(((Milestone) other).projectTasks)); // state check
     }
     @Override
     public String toString() {

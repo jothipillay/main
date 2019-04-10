@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PROJECTS;
 
-import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
@@ -28,7 +27,6 @@ import seedu.address.model.util.PocketProjectDate;
  */
 public class EditProjectInfoCommand extends EditProjectCommand {
 
-    //TODO need to edit the project name in the employee
     public static final String EDIT_INFO_KEYWORD = "info";
 
     public static final String MESSAGE_USAGE = "Parameters: " + COMMAND_WORD + " PROJECT_NAME" + EDIT_INFO_KEYWORD
@@ -61,18 +59,17 @@ public class EditProjectInfoCommand extends EditProjectCommand {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        List<Project> projectList = model.getProjectList();
-        Project projectToEdit = null;
-        for (Project p: projectList) {
-            if (p.hasProjectName(projectName)) {
-                projectToEdit = p;
-            }
-        }
+        Project projectToEdit = model.getProjectWithName(projectName);
+
         if (projectToEdit == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PROJECT_NAME);
         }
 
         Project editedProject = createEditedProject(projectToEdit, editProjectDescriptor);
+
+        if (PocketProjectDate.isEarlierThan(editedProject.getDeadline(), editedProject.getStartDate())) {
+            throw new CommandException(PocketProjectDate.START_END_DATE_CONSTRAINTS);
+        }
 
         if (!editedProject.isSameProject(projectToEdit) && model.hasProject(editedProject)) {
             throw new CommandException(MESSAGE_DUPLICATE_PROJECT);
@@ -98,7 +95,7 @@ public class EditProjectInfoCommand extends EditProjectCommand {
         Client updatedClient = editProjectDescriptor.getClient().orElse(projectToEdit.getClient());
 
         return projectToEdit.editProject(updatedName, updatedClient, projectToEdit.getStartDate(), updatedDeadline,
-             updatedDescription);
+            updatedDescription);
     }
 
     @Override

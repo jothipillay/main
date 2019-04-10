@@ -8,6 +8,6 @@ public abstract class EditProjectCommand extends EditCommand {
     public static final String EDIT_PROJECT_KEYWORD = "project";
 
     public static final String MESSAGE_USAGE = EDIT_PROJECT_KEYWORD + " PROJECT_NAME milestone/userstory/info ARGUMENTS"
-        + ": adds the employee/milestone/user story into the selected project.\n";
+        + ": edits the employee/milestone/user story in the selected project.\n";
 
 }

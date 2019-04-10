@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GITHUB;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MILESTONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SKILL;
@@ -26,7 +27,9 @@ import seedu.address.model.employee.EmployeeNameContainsKeywordsPredicate;
 import seedu.address.model.project.Project;
 import seedu.address.model.project.ProjectNameContainsKeywordsPredicate;
 import seedu.address.testutil.EditEmployeeDescriptorBuilder;
+import seedu.address.testutil.EditMilestoneDescriptorBuilder;
 import seedu.address.testutil.EditProjectDescriptorBuilder;
+import seedu.address.testutil.TypicalMilestones;
 
 /**
  * Contains helper methods for testing commands.
@@ -105,6 +108,7 @@ public class CommandTestUtil {
     public static final String INVALID_GITHUB2_DESC = " " + PREFIX_GITHUB + ""; //no empty string
     public static final String INVALID_GITHUB3_DESC = " " + PREFIX_GITHUB + " kingcoder 96"; //combine 1 & 2
     public static final String INVALID_SKILL_DESC = " " + PREFIX_SKILL + "Java*"; // '*' not allowed in skills
+    public static final String INVALID_MILESTONE_DESC = " " + PREFIX_MILESTONE + ""; //empty string not allowed
 
     public static final String INVALID_PROJECT_NAME_DESC = " " + PREFIX_NAME + "Alice##"; // '#' not allowed in names
     public static final String INVALID_CLIENT_DESC = " " + PREFIX_CLIENT + "Apollo#&"; // '#' not allowed in client
@@ -121,6 +125,9 @@ public class CommandTestUtil {
     public static final EditProjectInfoCommand.EditProjectDescriptor DESC_PROJECT_1;
     public static final EditProjectInfoCommand.EditProjectDescriptor DESC_PROJECT_2;
 
+    public static final EditProjectMilestoneCommand.EditMilestoneDescriptor DESC_MILESTONE_1;
+    public static final EditProjectMilestoneCommand.EditMilestoneDescriptor DESC_MILESTONE_2;
+
     static {
         DESC_AMY = new EditEmployeeDescriptorBuilder().withName(VALID_NAME_AMY)
             .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withGithubAccount(VALID_GITHUB_AMY)
@@ -132,6 +139,8 @@ public class CommandTestUtil {
             .withDescription(VALID_DESCRIPTION).build();
         DESC_PROJECT_2 = new EditProjectDescriptorBuilder().withName(VALID_NAME_AMY).withClient(VALID_CLIENT_ALICE)
             .withDescription(VALID_DESCRIPTION).build();
+        DESC_MILESTONE_1 = new EditMilestoneDescriptorBuilder(TypicalMilestones.TYPICAL_MILESTONE_START).build();
+        DESC_MILESTONE_2 = new EditMilestoneDescriptorBuilder(TypicalMilestones.TYPICAL_MILESTONE_END).build();
     }
 
 

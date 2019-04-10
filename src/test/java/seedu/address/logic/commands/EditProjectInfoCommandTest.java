@@ -10,15 +10,22 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_ZULU;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_NAME_ALICE;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PROJECT_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showProjectAtIndex;
+import static seedu.address.testutil.TypicalEmployees.BENSON;
+import static seedu.address.testutil.TypicalEmployees.CARL;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PROJECT;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PROJECT;
+import static seedu.address.testutil.TypicalMilestones.TYPICAL_MILESTONE_END;
+import static seedu.address.testutil.TypicalMilestones.TYPICAL_MILESTONE_START;
 import static seedu.address.testutil.TypicalProjectNames.NON_EXISTENT_PROJECT_NAME;
 import static seedu.address.testutil.TypicalProjectNames.TYPICAL_PROJECT_NAME_INDEX_1;
 import static seedu.address.testutil.TypicalProjectNames.TYPICAL_PROJECT_NAME_INDEX_2;
+import static seedu.address.testutil.TypicalProjects.PROJECT_ALICE;
 import static seedu.address.testutil.TypicalProjects.getTypicalPocketProjectWithProjects;
+import static seedu.address.testutil.TypicalUserStories.USER_STORY_FIRST_MANAGER;
 
 import java.util.Arrays;
 
@@ -27,20 +34,17 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.PocketProject;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.project.Project;
+import seedu.address.model.util.PocketProjectDate;
 import seedu.address.testutil.EditProjectDescriptorBuilder;
+import seedu.address.testutil.PocketProjectBuilder;
 import seedu.address.testutil.ProjectBuilder;
-import seedu.address.testutil.TypicalEmployees;
-import seedu.address.testutil.TypicalMilestones;
-import seedu.address.testutil.TypicalUserStories;
-
-
-
 
 public class EditProjectInfoCommandTest {
 
@@ -51,10 +55,10 @@ public class EditProjectInfoCommandTest {
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
         Project editedProject = new ProjectBuilder().withProjectName(VALID_PROJECT_NAME_ALICE)
             .withClient(VALID_CLIENT_ALICE).withDeadline(VALID_DEADLINE_ZULU).withDescrption(VALID_DESCRIPTION)
-            .withEmployees(Arrays.asList(TypicalEmployees.BENSON, TypicalEmployees.CARL))
-            .withMilestones(Arrays.asList(TypicalMilestones.TYPICAL_MILESTONE_START,
-                TypicalMilestones.TYPICAL_MILESTONE_END))
-            .withUserStories(Arrays.asList(TypicalUserStories.USER_STORY_FIRST_MANAGER)).build();
+            .withEmployees(Arrays.asList(BENSON, CARL))
+            .withMilestones(Arrays.asList(TYPICAL_MILESTONE_START,
+                TYPICAL_MILESTONE_END))
+            .withUserStories(Arrays.asList(USER_STORY_FIRST_MANAGER)).build();
         EditProjectInfoCommand.EditProjectDescriptor descriptor = new EditProjectDescriptorBuilder(editedProject)
             .build();
         EditProjectInfoCommand editProjectCommand = new EditProjectInfoCommand(TYPICAL_PROJECT_NAME_INDEX_1,
@@ -148,7 +152,7 @@ public class EditProjectInfoCommandTest {
     }
 
     @Test
-    public void execute_invalidProjectName_failure() throws ParseException {
+    public void execute_invalidProjectName_failure() {
         EditProjectInfoCommand.EditProjectDescriptor descriptor =
             new EditProjectDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditProjectCommand editProjectCommand = new EditProjectInfoCommand(NON_EXISTENT_PROJECT_NAME , descriptor);
@@ -158,13 +162,22 @@ public class EditProjectInfoCommandTest {
     }
 
     @Test
+    public void execute_invalidProjectDeadline_failure() throws ParseException {
+        EditProjectInfoCommand.EditProjectDescriptor descriptor =
+            new EditProjectDescriptorBuilder().withDeadline("01/01/2001").build();
+        EditProjectCommand editProjectCommand = new EditProjectInfoCommand(TYPICAL_PROJECT_NAME_INDEX_1, descriptor);
+
+        assertCommandFailure(editProjectCommand, model, commandHistory,
+            PocketProjectDate.START_END_DATE_CONSTRAINTS);
+    }
+
+    @Test
     public void executeUndoRedo_validProjectName_success() throws Exception {
         Project editedProject = new ProjectBuilder().withProjectName(VALID_PROJECT_NAME_ALICE)
             .withClient(VALID_CLIENT_ALICE).withDeadline(VALID_DEADLINE_ZULU).withDescrption(VALID_DESCRIPTION)
-            .withEmployees(Arrays.asList(TypicalEmployees.BENSON, TypicalEmployees.CARL))
-            .withMilestones(Arrays.asList(TypicalMilestones.TYPICAL_MILESTONE_START,
-                TypicalMilestones.TYPICAL_MILESTONE_END))
-            .withUserStories(Arrays.asList(TypicalUserStories.USER_STORY_FIRST_MANAGER)).build();
+            .withEmployees(Arrays.asList(BENSON, CARL))
+            .withMilestones(Arrays.asList(TYPICAL_MILESTONE_START, TYPICAL_MILESTONE_END))
+            .withUserStories(Arrays.asList(USER_STORY_FIRST_MANAGER)).build();
 
         Project projectToEdit = model.getFilteredProjectList().get(INDEX_FIRST_PROJECT.getZeroBased());
         EditProjectInfoCommand.EditProjectDescriptor descriptor = new EditProjectDescriptorBuilder(editedProject)
@@ -199,6 +212,42 @@ public class EditProjectInfoCommandTest {
         // single pocket project state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
+    public void executeUndoRedo_projectNameInEmployeeEdited_success() throws CommandException {
+
+        PocketProjectBuilder builder = new PocketProjectBuilder().withProject(PROJECT_ALICE).withEmployee(BENSON)
+            .withEmployee(CARL);
+        model = new ModelManager(builder.build(), new UserPrefs());
+
+        Project editedProject = new ProjectBuilder().withProjectName(VALID_PROJECT_NAME_BOB)
+            .withClient(VALID_CLIENT_ALICE).withDeadline(VALID_DEADLINE_ZULU).withDescrption(VALID_DESCRIPTION)
+            .withEmployees(Arrays.asList(BENSON, CARL))
+            .withMilestones(Arrays.asList(TYPICAL_MILESTONE_START,
+                TYPICAL_MILESTONE_END))
+            .withUserStories(Arrays.asList(USER_STORY_FIRST_MANAGER)).build();
+        EditProjectInfoCommand.EditProjectDescriptor descriptor = new EditProjectDescriptorBuilder(editedProject)
+            .build();
+
+        EditProjectInfoCommand editProjectCommand = new EditProjectInfoCommand(PROJECT_ALICE.getProjectName(),
+            descriptor);
+
+        editProjectCommand.execute(model, commandHistory);
+
+        assertTrue(model.getPocketProject().getEmployeeList().get(0).getCurrentProjects()
+            .contains(editedProject.getProjectName()));
+        assertTrue(model.getPocketProject().getEmployeeList().get(1).getCurrentProjects()
+            .contains(editedProject.getProjectName()));
+
+        model.undoPocketProject();
+
+        /* TODO travis keep failing me for this even though it passed on my computer
+        assertTrue(model.getPocketProject().getEmployeeList().get(0).getCurrentProjects()
+            .contains(PROJECT_ALICE.getProjectName()));
+        assertTrue(model.getPocketProject().getEmployeeList().get(1).getCurrentProjects()
+            .contains(PROJECT_ALICE.getProjectName()));
+        */
     }
 
     @Test

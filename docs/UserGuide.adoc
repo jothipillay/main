@@ -268,7 +268,7 @@ You can remove all the person's skills by typing `s/` without specifying any ski
 
 Edits the existing project components such as project name, client, deadline, description of the project.
 
-Format: `edit project PROJ_NAME info[n/name] [c/client] [d/deadline] [desc/description]`
+Format: `edit project PROJ_NAME info [n/name] [c/client] [d/deadline] [desc/description]`
 
 Examples:
 
@@ -276,9 +276,16 @@ Examples:
 Change project Apollo name to Gemini, client to John, deadline to 12/09/2020 and the description to 'An application for project management'
 
 
-==== Edits milestone of a project: `edit project milestone` [coming in v2.0]
+==== Edits milestone of a project: `edit project milestone`
 
 Edits the existing milestone in the milestone list of a project.
+
+Format: `edit project PROJ_NAME milestone INDEX [m/milestone] [d/date]`
+
+Examples:
+
+* `edit project Apollo milestone 2 m/Implement edit command d/09/04/2019`
+Change the milestone at index 2 in Apollo to 'Implement edit command 09/04/2019'
 
 ==== Edits UserStory of a project: `edit project userstory` [coming in v2.0]
 

@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.ArgumentMultimap.isAnyPrefixPresent;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLIENT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FUNCTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_IMPORTANCE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MILESTONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REASON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_USER;
@@ -20,6 +22,7 @@ import seedu.address.logic.commands.EditProjectCommand;
 import seedu.address.logic.commands.EditProjectInfoCommand.EditProjectDescriptor;
 import seedu.address.logic.commands.EditProjectInfoCommand;
 import seedu.address.logic.commands.EditProjectMilestoneCommand;
+import seedu.address.logic.commands.EditProjectMilestoneCommand.EditMilestoneDescriptor;
 import seedu.address.logic.commands.EditProjectUserStoryCommand;
 import seedu.address.logic.commands.EditProjectUserStoryCommand.EditUserStoryDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -36,6 +39,15 @@ public class EditProjectCommandParser {
     private static final Pattern EDIT_PROJECT_COMMAND_FORMAT = Pattern.compile("(?<project>(\\S+\\s)+)"
         + "(?<keyword>milestone\\s|info\\s|userstory\\s)(?<arguments>.*)");
 
+    private static final String WHITE_SPACE_PREAMBLE = " ";
+
+    //use for splitting of the argument
+    private static final int START_INDEX = 0;
+    private static final int OFFSET = 1;
+    private static final int LIMIT = 2;
+    private static final int KEYWORD_INDEX = 0;
+    private static final int ARGUMENT_INDEX = 1;
+
     /**
      * Parse the input for the EditProjectCommand
      * @param userInput
@@ -51,13 +63,13 @@ public class EditProjectCommandParser {
         }
 
         int indexOfArgs = findKeywordPosition(userInput);
-        String projectName = userInput.substring(0, indexOfArgs - 1);
+        String projectName = userInput.substring(START_INDEX, indexOfArgs - OFFSET);
         //args containing keyword
         String argsString = userInput.substring(indexOfArgs);
         //to extract out the keyword
-        String[] args = argsString.split(" ", 2);
-        String keyword = args[0];
-        String arguments = args[1];
+        String[] args = argsString.split(" ", LIMIT);
+        String keyword = args[KEYWORD_INDEX];
+        String arguments = args[ARGUMENT_INDEX];
 
         ProjectName name;
         try {
@@ -102,12 +114,44 @@ public class EditProjectCommandParser {
 
             return new EditProjectInfoCommand(name, editProjectDescriptor);
 
-            //TODO add implementation for milestone and userstory
+        } else if (keyword.equals(EditProjectMilestoneCommand.EDIT_MILESTONE_KEYWORD)) {
+
+            requireNonNull(arguments);
+            String s = WHITE_SPACE_PREAMBLE + arguments;
+            ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(s, PREFIX_MILESTONE, PREFIX_DATE);
+
+            Index milestoneIndex;
+
+            try {
+                milestoneIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
+            } catch (ParseException pe) {
+                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditProjectMilestoneCommand.MESSAGE_USAGE), pe);
+            }
+
+            EditMilestoneDescriptor editMilestoneDescriptor = new EditMilestoneDescriptor();
+
+            if (argMultimap.getValue(PREFIX_MILESTONE).isPresent()) {
+                editMilestoneDescriptor.setMilestoneDesc(ParserUtil.parseMilestoneDescription(
+                    argMultimap.getValue(PREFIX_MILESTONE).get()));
+            }
+
+            if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
+                editMilestoneDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+            }
+
+            if (!editMilestoneDescriptor.isAnyFieldEdited()) {
+                throw new ParseException(EditProjectMilestoneCommand.MESSAGE_NOT_EDITED);
+            }
+
+            return new EditProjectMilestoneCommand(name, milestoneIndex, editMilestoneDescriptor);
+
         } else if (keyword.equals(EditProjectUserStoryCommand.EDIT_USER_STORY_KEYWORD)) {
             requireNonNull(arguments);
             String s = " " + arguments;
             ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(s, PREFIX_USER, PREFIX_FUNCTION, PREFIX_REASON, PREFIX_IMPORTANCE);
+                ArgumentTokenizer.tokenize(s, PREFIX_USER, PREFIX_FUNCTION, PREFIX_REASON, PREFIX_IMPORTANCE);
 
             Index index;
 
@@ -115,7 +159,7 @@ public class EditProjectCommandParser {
                 index = ParserUtil.parseIndex(argMultimap.getPreamble());
             } catch (ParseException pe) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        EditProjectUserStoryCommand.MESSAGE_USAGE), pe);
+                    EditProjectUserStoryCommand.MESSAGE_USAGE), pe);
             }
 
             EditUserStoryDescriptor editUserStoryDescriptor = new EditUserStoryDescriptor();
@@ -124,15 +168,15 @@ public class EditProjectCommandParser {
             }
             if (argMultimap.getValue(PREFIX_FUNCTION).isPresent()) {
                 editUserStoryDescriptor.setFunction(ParserUtil.parseStoryFunction(
-                        argMultimap.getValue(PREFIX_FUNCTION).get()));
+                    argMultimap.getValue(PREFIX_FUNCTION).get()));
             }
             if (argMultimap.getValue(PREFIX_REASON).isPresent()) {
                 editUserStoryDescriptor.setReason(ParserUtil.parseStoryReason(
-                        argMultimap.getValue(PREFIX_REASON).get()));
+                    argMultimap.getValue(PREFIX_REASON).get()));
             }
             if (argMultimap.getValue(PREFIX_IMPORTANCE).isPresent()) {
                 editUserStoryDescriptor.setImportance(ParserUtil.parseStoryImportance(
-                        argMultimap.getValue(PREFIX_IMPORTANCE).get()));
+                    argMultimap.getValue(PREFIX_IMPORTANCE).get()));
             }
 
             return new EditProjectUserStoryCommand(name, index, editUserStoryDescriptor);
@@ -165,7 +209,7 @@ public class EditProjectCommandParser {
         }
 
         if (userinput.contains(EditProjectUserStoryCommand.EDIT_USER_STORY_KEYWORD)
-                && (userinput.indexOf(EditProjectUserStoryCommand.EDIT_USER_STORY_KEYWORD) < index)) {
+            && (userinput.indexOf(EditProjectUserStoryCommand.EDIT_USER_STORY_KEYWORD) < index)) {
             index = userinput.indexOf(EditProjectUserStoryCommand.EDIT_USER_STORY_KEYWORD);
         }
 

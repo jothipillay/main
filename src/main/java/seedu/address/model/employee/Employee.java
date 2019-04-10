@@ -114,6 +114,14 @@ public class Employee {
         this.currentProjects.remove(project.getProjectName());
     }
 
+    /**
+     * To update the projectName when changes are made to the project the employee is in.
+     */
+    public void updateProjectName(Project projectToEdit, Project editedProject) {
+        leave(projectToEdit);
+        join(editedProject);
+    }
+
 
     /**
      * Returns a clone of this Employee object.

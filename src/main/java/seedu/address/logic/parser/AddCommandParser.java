@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.ArgumentMultimap.arePrefixesPresent;
+import static seedu.address.logic.parser.ArgumentMultimap.areAllPrefixesPresent;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLIENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DEADLINE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -61,7 +61,7 @@ public class AddCommandParser implements Parser<AddCommand> {
                 ArgumentTokenizer.tokenize(arguments, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_GITHUB,
                     PREFIX_SKILL);
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GITHUB, PREFIX_PHONE, PREFIX_EMAIL)
+            if (!areAllPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_GITHUB, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddEmployeeCommand.MESSAGE_USAGE));
@@ -81,7 +81,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(arguments, PREFIX_NAME, PREFIX_CLIENT, PREFIX_START_DATE, PREFIX_DEADLINE);
 
-            if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CLIENT, PREFIX_START_DATE, PREFIX_DEADLINE)
+            if (!areAllPrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_CLIENT, PREFIX_START_DATE, PREFIX_DEADLINE)
                 || !argMultimap.getPreamble().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddProjectCommand.MESSAGE_USAGE));

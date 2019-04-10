@@ -238,7 +238,7 @@ public class EditEmployeeCommandTest {
      * Test if the employees in the projects are updated when editCommand is executed
      */
     @Test
-    public void executeUndoRedo_sameEmployeeinProjectEdited() throws CommandException {
+    public void executeUndoRedo_sameEmployeeInProjectEdited() throws CommandException {
 
         PocketProjectBuilder builder = new PocketProjectBuilder().withProject(TypicalProjects.PROJECT_ALICE)
             .withEmployee(TypicalEmployees.BENSON).withEmployee(TypicalEmployees.CARL);
