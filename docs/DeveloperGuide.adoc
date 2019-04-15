@@ -407,7 +407,7 @@ Adds the specified milestone to the list of milestones in project named `PROJECT
 
 In addition, the `AddToEmployeeCommand` class and `AddToMilestoneCommand` class is
 abstracted into a `AddToCommand` class which inherits from `Command` class. This allows for
-further `AddTo` functionalities to be added while conforming to the Open-Closed Principle.
+further functionalities to be added while conforming to the Open-Closed Principle.
 
 Refer to the Class Diagram below for a better visualization of the inheritance relationship.
 
