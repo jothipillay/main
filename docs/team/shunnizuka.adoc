@@ -14,6 +14,27 @@ My team was inspired by our own struggle of having to manage multiple projects a
 === My Role
 My primary role in this project was to implement `find` command which is essential in allowing users to navigate through the application and `edit` command which is necessary as users need to change various information to ensure that things are always up-to-date.
 
+Below are explanation of the symbols I used in this document.
+
+[width="100%",cols="35%,<65%"]
+|===
+|Symbol |Meaning
+
+|image:ug-notepadpencil.png[width="40"]
+|The note pad icon indicates any useful tips or things to take note.
+
+|image:ug-lightbulb.png[width="50"]
+|The light bulb icon indicates any shortcuts
+that you can use while using the Pocket Project application.
+
+|image:ug-exclamation.png[width="50"]
+|The exclamation mark icon indicates any warnings that you
+ should take note of.
+
+|`find`
+|The grey markup indicate that the term is either a command or the name of an object class.
+|===
+
 The following sections includes implementation done in details and also other contributions and relevant sections I have recorded in the user guide and developer guide.
 
 == Summary of contributions
@@ -49,7 +70,8 @@ This section shows a summary of contributions I have made for the project.
 This section includes User Guide documentation I have written for the features that I have implemented. Due to limited space I have extracted out the commands which are more distinct from the original AddressBook application.
 
 include::../UserGuide.adoc[tag=findskill]
-include::../UserGuide.adoc[tag=findall+deadline]
+include::../UserGuide.adoc[tag=findall]
+include::../UserGuide.adoc[tag=finddeadline]
 include::../UserGuide.adoc[tag=edit]
 
 == Contributions to the Developer Guide

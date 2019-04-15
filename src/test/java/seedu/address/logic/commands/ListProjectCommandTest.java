@@ -29,7 +29,7 @@ public class ListProjectCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         assertCommandSuccess(new ListProjectCommand(), model, commandHistory,
-                ListProjectCommand.MESSAGE_SUCCESS, expectedModel);
+            ListProjectCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     //TODO: run test after listener for projects has been added to the UI

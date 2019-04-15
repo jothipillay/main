@@ -1,14 +1,17 @@
 package seedu.address.model.project;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.logging.Level.INFO;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.project.exceptions.DuplicateUserStoryException;
 import seedu.address.model.project.exceptions.UserStoryNotFoundException;
 
@@ -27,6 +30,8 @@ import seedu.address.model.project.exceptions.UserStoryNotFoundException;
  * @see UserStory#isSameUserStory(UserStory)
  */
 public class SortedUserStoryList implements Iterable<UserStory> {
+
+    private static final Logger logger = LogsCenter.getLogger(SortedUserStoryList.class);
 
     private final ObservableList<UserStory> internalList = FXCollections.observableArrayList();
     private final ObservableList<UserStory> internalUnmodifiableList =
@@ -53,6 +58,8 @@ public class SortedUserStoryList implements Iterable<UserStory> {
 
         internalList.add(toAdd);
         Collections.sort(internalList);
+        logger.log(INFO, "Added new user story: " + toAdd.getUserStoryUser() + toAdd.getUserStoryFunction()
+                + toAdd.getUserStoryReason() + toAdd.getUserStoryImportance() + toAdd.getUserStoryStatus());
     }
 
     /**
@@ -64,6 +71,8 @@ public class SortedUserStoryList implements Iterable<UserStory> {
         if (!internalList.remove(toRemove)) {
             throw new UserStoryNotFoundException();
         }
+        logger.log(INFO, "Removed user story: " + toRemove.getUserStoryUser() + toRemove.getUserStoryFunction()
+                + toRemove.getUserStoryReason() + toRemove.getUserStoryImportance() + toRemove.getUserStoryStatus());
     }
 
     public void setUserStories(SortedUserStoryList replacement) {

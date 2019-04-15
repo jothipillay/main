@@ -9,66 +9,110 @@ inspired to create this application as we sought ways to improve efficiency in p
 This application was created with the intention of supporting software engineering project managers
 throughout the lifetime of a project, from the planning phase until it is delivered to the client.
 
-Pocket Project's *core functionality* includes:
-* Adding employees and projects to the application
-* Adding user stories to a project which is essential for planning.
-* Assigning projects to employees based on their individual skill sets.
-* Monitoring the progress of a project through milestones and tasks.
+Pocket Project's *core functionality* includes adding user stories to a project which is essential for planning, assigning
+projects to employees based on their individual skill sets and monitoring the progress of a project through milestones and tasks.
+
+== Before We Begin
+The following section details and previews a few symbols and formats that will
+be used in this portfolio.
+
+[width="200",cols="35%,<65%"]
+|===
+|Symbol |Meaning
+
+|image:ug-notepadpencil.png[width="40"]
+|The note pad icon indicates any useful tips or things that you
+need to take note of while using the Pocket Project application.
+
+|image:ug-lightbulb.png[width="50"]
+|The light bulb icon indicates any shortcuts
+that you can use while using the Pocket Project application.
+
+|image:ug-exclamation.png[width="50"]
+|The exclamation mark icon indicates any warnings that you
+ can take note of while using the Pocket Project application.
+
+|```code```
+| Words highlighted, known as `markups`, are used to indicate code segments or commands in the application.
+|===
 
 == Summary Of My Contributions
 In this section, I detail some of my key contributions towards this application in terms of both features and
 documentation.
 
-* *Major Contribution*: Smart Dates
+*Major Contribution: Smart Dates*
 
-** *What it does*: This allows the user flexibility in keying in dates when required and supports 2 main sub-formats.
-*** Firstly, it supports a fixed date format where users can key in a date according to *"DD/MM/YYYY"*.
-*** Secondly, it also accepts flexible input from the user. If the user wants a day relative to the current day, he/she can simply type *"today/tomorrow/yesterday"*. Otherwise
-if the user wants a day relative to current week, he/she can input *"this/next/last week DAY_OF_WEEK"*. Lastly if the user wants a date
-relative to the current month, he/she can simply go for *"this/next/last month DAY_OF_MONTH"*.
-*** The validity of the target date is also verified.
+* *What it does*: This allows the user flexibility in keying in dates when required and supports 2 main sub-formats.
+** Firstly, it supports a fixed date format where users can key in a date according to `DD/MM/YYYY`.
+** Secondly, it also accepts flexible input from the user. If the user wants a date relative to the current day, he/she can simply type `today/tomorrow/yesterday`. Otherwise
+if the user wants a date relative to current week, he/she can input `this/next/last week DAY_OF_WEEK`. Lastly if the user wants a date
+relative to the current month, he/she can simply go for `this/next/last month DAY_OF_MONTH`.
+** The validity of the target date is also verified.
 
-** *Why is it useful and important*: As expected, when it comes to a project manager application, the use of dates are used
-extensively in other features throughout the application. In addition, there is likely to be changes
-in dates of milestones or deadlines throughout the lifetime a project. So, this feature enables the user a quick and user-friendly way
-to execute certain commands, greatly improving efficiency. Some of these commands include,
-*** Setting of dates when creating and completing projects and milestones.
-*** Editing of the all components with dates inside a particular project.
-*** Finding projects that are due by a certain *DEADLINE*.
+* *Why it is useful and important*: In this application, dates are used
+extensively in other features. So, smart dates provides the user with a quick and user-friendly way
+to execute certain commands. Some of these commands include:
+** Setting of dates when creating and completing projects and milestones.
+** Editing of the all components with dates inside a particular project.
+** Finding projects that are due by a certain `DEADLINE`.
 
-** *The code that I contributed*: [https://github.com/cs2103-ay1819s2-w10-2/main/pull/144[Functional Code & Tests]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/172[Re-structure & Abstraction]]
+* *Highlights*: The flexible date input is parsed by a separate `PocketProjectDateParser`. Also, the user does not need to indicate his/her intended format as the
+feature is designed to differentiate based on the input received.
 
-* *Minor Contributions*:
-** Created functionality for the below mentioned features:
-*** Enabled adding projects to the application. [https://github.com/cs2103-ay1819s2-w10-2/main/pull/49[#49]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/116[#116]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/198[#198]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/208[#208]]
-*** Enabled adding employees and milestones to projects. [https://github.com/cs2103-ay1819s2-w10-2/main/pull/88[#88]][https://github.com/cs2103-ay1819s2-w10-2/main/pull/95[#95]][https://github.com/cs2103-ay1819s2-w10-2/main/pull/109[#109]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/120[#120]]
-** Changed functionality for the below mentioned features
-*** Changed the address attribute of an employee to GitHub account as it is more
-useful in a software engineering project context. [https://github.com/cs2103-ay1819s2-w10-2/main/pull/130[#130]]
-** Enhanced appearance of the User Interface (UI)
-*** Designed the Pocket Project application logo (seen below)
+* *The code that I contributed*: https://github.com/cs2103-ay1819s2-w10-2/main/pull/144[Functional Code & Tests Part 1] https://github.com/cs2103-ay1819s2-w10-2/main/pull/172[Functional Code & Tests Part 2]
 
-https://github.com/cs2103-ay1819s2-w10-2/main/pull/32
-https://github.com/cs2103-ay1819s2-w10-2/main/pull/34
+*Minor Contributions*:
 
-* *Overall Code Contributions*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jothipillay[RepoSense]]
+* Enabled adding projects to the application. https://github.com/cs2103-ay1819s2-w10-2/main/pull/49[#49] https://github.com/cs2103-ay1819s2-w10-2/main/pull/116[#116] https://github.com/cs2103-ay1819s2-w10-2/main/pull/198[#198] https://github.com/cs2103-ay1819s2-w10-2/main/pull/208[#208]
+* Enabled adding employees and milestones to projects. https://github.com/cs2103-ay1819s2-w10-2/main/pull/88[#88] https://github.com/cs2103-ay1819s2-w10-2/main/pull/95[#95] https://github.com/cs2103-ay1819s2-w10-2/main/pull/109[#109] https://github.com/cs2103-ay1819s2-w10-2/main/pull/120[#120]
+* Designed the Pocket Project application logo.
 
+.Pocket Project Logo
+image::PPLogo.png[width="100"]
 
+*Overall Code Contributions*: https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jothipillay[RepoSense]
+
+*Other Contributions*:
+
+* Project Management
+** Helped track issues on the team repository using labels and assignees.
+** Compiled and formatted the entire User Guide after individual contributions by team members: https://github.com/cs2103-ay1819s2-w10-2/main/pull/242[#242]
+
+* Other Enhancements/Fixes to Existing Features
+** Abstracted out common code in classes in the Model to reduce code duplication: https://github.com/cs2103-ay1819s2-w10-2/main/pull/221[#221]
+** Fixed Various Bugs: https://github.com/cs2103-ay1819s2-w10-2/main/pull/172[#172] https://github.com/cs2103-ay1819s2-w10-2/main/pull/232[#232] https://github.com/cs2103-ay1819s2-w10-2/main/pull/245[#245]
+
+* Documentation
+** Enhanced documentation of existing and new features such as `help`, `add employee` among others: https://github.com/cs2103-ay1819s2-w10-2/main/pull/229[#229]
+** Created a set of symbols/legends for User Guide and Developer Guide https://github.com/cs2103-ay1819s2-w10-2/main/pull/84[#84]
+** Documented all user stories used in planning in the Developer Guide https://github.com/cs2103-ay1819s2-w10-2/main/pull/149[#149]
+
+* Community
+** Reviewed pull requests with valid non-trivial feedback: https://github.com/cs2103-ay1819s2-w10-2/main/pull/118[#118] https://github.com/cs2103-ay1819s2-w10-2/main/pull/126[#126] https://github.com/cs2103-ay1819s2-w10-2/main/pull/141[#141] https://github.com/cs2103-ay1819s2-w10-2/main/pull/214[#214] https://github.com/cs2103-ay1819s2-w10-2/main/pull/230[#230]
+** Reported bugs and offered suggestions to another team, CS2103-AY1819S2-T12-4, in the module: https://github.com/CS2103-AY1819S2-T12-4/main/issues/247[#247]
+** The Smart Date feature that I implemented was adopted by my some of my fellow teammates for use in their own individual features: https://github.com/cs2103-ay1819s2-w10-2/main/pull/165[#165] https://github.com/cs2103-ay1819s2-w10-2/main/pull/209[#209]
+
+* Tools
+** Integrated a new GitHub plugin, Codacy, to the GitHub team repository: https://github.com/cs2103-ay1819s2-w10-2/main/pull/154[#154]
 
 === Contributions to the User Guide
-* I contributed to the following sections in the User Guide
-** Section 1: Introduction
-** Section 2: Background Information
-** Section 3.3: Symbols
-** Section 3.4: Glossary
-** Section 4: Features
+In this section, I detail some of the key contributions I made to the User Guide targeted at helping users
+understand how to use the application.
+
+include::../UserGuide.adoc[tag=datefeature]
+include::../UserGuide.adoc[tag=addprojectfeature]
+
+These sections are not exhaustive of my contributions and the rest can be
+viewed at https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/UserGuide.adoc[Pocket Project: User Guide]
 
 === Contributions to the Developer Guide
-* I contributed to the following sections in the Developer Guide
-** Section 1: Introduction
-** Section 2: Background Information
-** Section 3: Before We Begin
-** Section 6.1: Add employee/milestone/user story to projects feature
-** Appendix A: Product Scope
-** Appendix B: User Stories
+In this section, I detail some of the key contributions I made to the Developer Guide targeted at helping
+fellow developers understand the implementation and design considerations that went behind the building of
+the application.
+
+include::../DeveloperGuide.adoc[tag=datefeature]
+include::../DeveloperGuide.adoc[tag=addtoemployeemilestone]
+
+These sections are not exhaustive of my contributions and the rest can be
+viewed at https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/DeveloperGuide.adoc[Pocket Project: Developer Guide]
 

@@ -183,7 +183,6 @@ public abstract class PocketProjectSystemTest {
     /**
      * Views the project at {@code index} of the displayed list.
      */
-
     protected void viewProject(Index index) {
         //executeCommand(ViewCommand.COMMAND_WORD + " " + ViewProjectCommand.VIEW_PROJECT_KEYWORD + " "
         //        + index.getOneBased());

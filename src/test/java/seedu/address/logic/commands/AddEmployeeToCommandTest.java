@@ -29,16 +29,15 @@ public class AddEmployeeToCommandTest {
     private Model model = new ModelManager(TestUtil.typicalPocketProject(), new UserPrefs());
     private CommandHistory commandHistory = new CommandHistory();
 
-    //TODO
     @Test
     public void execute_validProjectNameValidIndex_success() {
         Project targetProject = model.getProjectWithName(TypicalProjects.PROJECT_ALICE.getProjectName());
         Index validIndex = Index.fromOneBased(model.getFilteredEmployeeList().size() - 1);
         AddEmployeeToCommand addEmployeeToCommand = new AddEmployeeToCommand(validIndex,
-                targetProject.getProjectName());
+            targetProject.getProjectName());
         Employee targetEmployee = model.getFilteredEmployeeList().get(validIndex.getZeroBased());
         String expectedMessage = String.format(AddEmployeeToCommand.MESSAGE_ADDTOPROJECT_EMPLOYEE_SUCCESS,
-                targetEmployee, targetProject.getProjectName());
+            targetEmployee, targetProject.getProjectName());
 
         ModelManager expectedModel = new ModelManager(model.getPocketProject(), new UserPrefs());
         expectedModel.addEmployeeTo(targetProject, targetEmployee);
@@ -50,9 +49,9 @@ public class AddEmployeeToCommandTest {
     @Test
     public void execute_invalidProjName_throwsCommandException() {
         AddEmployeeToCommand addEmployeeToCommand = new AddEmployeeToCommand(Index.fromOneBased(1),
-                new ProjectName("INVALID"));
+            new ProjectName("INVALID"));
         assertCommandFailure(addEmployeeToCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_PROJECT_NAME);
+            Messages.MESSAGE_INVALID_PROJECT_NAME);
     }
 
     @Test
@@ -60,10 +59,10 @@ public class AddEmployeeToCommandTest {
         Project targetProject = model.getProjectWithName(TypicalProjects.PROJECT_ALICE.getProjectName());
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredEmployeeList().size() + 1);
         AddEmployeeToCommand addEmployeeToCommand = new AddEmployeeToCommand(outOfBoundIndex,
-                targetProject.getProjectName());
+            targetProject.getProjectName());
 
         assertCommandFailure(addEmployeeToCommand, model, commandHistory,
-                Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
+            Messages.MESSAGE_INVALID_EMPLOYEE_DISPLAYED_INDEX);
     }
 
     @Test
@@ -72,10 +71,10 @@ public class AddEmployeeToCommandTest {
         Project project = model.getProjectWithName(TypicalProjects.PROJECT_ALICE.getProjectName());
         Index targetIndex = Index.fromOneBased(model.getFilteredEmployeeList().size() - 1);
         AddEmployeeToCommand addEmployeeToCommand = new AddEmployeeToCommand(targetIndex,
-                project.getProjectName());
+            project.getProjectName());
         Employee employeeToAdd = model.getFilteredEmployeeList().get(targetIndex.getZeroBased());
         String expectedMessage = String.format(AddEmployeeToCommand.MESSAGE_ADDTOPROJECT_EMPLOYEE_SUCCESS,
-                employeeToAdd, project.getProjectName());
+            employeeToAdd, project.getProjectName());
 
         ModelManager expectedModel = new ModelManager(model.getPocketProject(), new UserPrefs());
         expectedModel.addEmployeeTo(project, employeeToAdd);
@@ -83,24 +82,24 @@ public class AddEmployeeToCommandTest {
         assertCommandSuccess(addEmployeeToCommand, model, commandHistory, expectedMessage, expectedModel);
 
         AddEmployeeToCommand addEmployeeToCommand2 = new AddEmployeeToCommand(targetIndex,
-                project.getProjectName());
+            project.getProjectName());
         assertCommandFailure(addEmployeeToCommand2, model, commandHistory,
-                Messages.MESSAGE_DUPLICATE_PROJ_EMPLOYEE);
+            Messages.MESSAGE_DUPLICATE_PROJ_EMPLOYEE);
     }
 
     @Test
     public void equals() {
         AddEmployeeToCommand addEmployeeToCommandOne = new AddEmployeeToCommand(Index.fromOneBased(1),
-                TypicalProjects.PROJECT_ALICE.getProjectName());
+            TypicalProjects.PROJECT_ALICE.getProjectName());
         AddEmployeeToCommand addEmployeeToCommandTwo = new AddEmployeeToCommand(Index.fromOneBased(1),
-                TypicalProjects.PROJECT_BENSON.getProjectName());
+            TypicalProjects.PROJECT_BENSON.getProjectName());
 
         // same object -> returns true
         assertTrue(addEmployeeToCommandOne.equals(addEmployeeToCommandOne));
 
         // same values -> returns true
         AddEmployeeToCommand addEmployeeToCommandOneCopy = new AddEmployeeToCommand(Index.fromOneBased(1),
-                TypicalProjects.PROJECT_ALICE.getProjectName());
+            TypicalProjects.PROJECT_ALICE.getProjectName());
         assertTrue(addEmployeeToCommandOne.equals(addEmployeeToCommandOneCopy));
 
         // different types -> returns false
@@ -114,7 +113,7 @@ public class AddEmployeeToCommandTest {
 
         // different indices -> returns false
         AddEmployeeToCommand addEmployeeToCommandThree = new AddEmployeeToCommand(Index.fromOneBased(2),
-                TypicalProjects.PROJECT_ALICE.getProjectName());
+            TypicalProjects.PROJECT_ALICE.getProjectName());
         assertFalse(addEmployeeToCommandOne.equals(addEmployeeToCommandThree));
     }
 }

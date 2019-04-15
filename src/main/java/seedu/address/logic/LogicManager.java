@@ -63,7 +63,7 @@ public class LogicManager implements Logic {
                 throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
             }
         }
-
+        logger.info(commandText);
         return commandResult;
     }
 

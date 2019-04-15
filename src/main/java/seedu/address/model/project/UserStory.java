@@ -77,7 +77,6 @@ public class UserStory implements Comparable<UserStory> {
      * Comparison between user stories. If two user stories are identical in all the string fields, then
      * it should be considered as the same story even if the importance level or status is different.
      * @param story
-     * @return
      */
     public boolean isSameUserStory(UserStory story) {
         if (story == this) {
@@ -97,6 +96,9 @@ public class UserStory implements Comparable<UserStory> {
                 this.reason.clone(), this.status.clone());
     }
 
+    /**
+     * Compares the {@code UserStoryImportance} of this story and the {@code other} and returns true if higher
+     */
     public boolean isHigherImportance(UserStory other) {
         return this.importance.isHigherImportance(other.importance);
     }

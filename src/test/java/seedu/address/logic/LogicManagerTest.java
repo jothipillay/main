@@ -72,7 +72,6 @@ public class LogicManagerTest {
         assertHistoryCorrect(deleteCommand);
     }
 
-    //TODO: remove the assert for history
     @Test
     public void execute_validCommand_success() {
         String listEmployeeCommand = ListCommand.COMMAND_WORD + " " + ListEmployeeCommand.LIST_EMPLOYEE_KEYWORD;
@@ -88,7 +87,7 @@ public class LogicManagerTest {
     public void execute_storageThrowsIoException_throwsCommandException() throws Exception {
         // Setup LogicManager with JsonPocketProjectIoExceptionThrowingStub
         JsonPocketProjectStorage pocketProjectStorage =
-                new JsonPocketProjectIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
+            new JsonPocketProjectIoExceptionThrowingStub(temporaryFolder.newFile().toPath());
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.newFile().toPath());
         StorageManager storage = new StorageManager(pocketProjectStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
@@ -152,7 +151,7 @@ public class LogicManagerTest {
      *      - {@code expectedModel}'s pocket project was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
-                                           String expectedMessage, Model expectedModel) {
+                                       String expectedMessage, Model expectedModel) {
 
         try {
             CommandResult result = logic.execute(inputCommand);
@@ -174,11 +173,11 @@ public class LogicManagerTest {
         try {
             CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
             String expectedMessage = String.format(
-                    HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
+                HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (ParseException | CommandException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.VIEW_EMPLOYEE_KEYWORD should"
-                    + "succeed.", e);
+                + "succeed.", e);
         }
     }
 

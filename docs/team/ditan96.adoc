@@ -72,7 +72,7 @@ image::PPPmilestonesandtasks.png[]
 *** Find and report bugs and suggest possible enhancements which can be done in the team's issue tracker. [https://github.com/cs2103-ay1819s2-w10-2/main/issues/123[#123]] [https://github.com/cs2103-ay1819s2-w10-2/main/issues/216[#216]]
 *** Helped to do debugging and resolve bugs in other team member's code when they required help. [https://github.com/cs2103-ay1819s2-w10-2/main/pull/225[#225]]
 ** Community contributions:
-*** Reported bugs found in other team's (CS2103-AY1819S2-W14-4) application [https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/192[#192]] [https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/85[#225]] [https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/599[#599]] [https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/773[#773]] [https://github.com/nus-cs2103-AY1819S2/pe-dry-run/issues/912[#912]]
+*** Reported bugs found in other team's (CS2103-AY1819S2-W14-4) application [https://github.com/cs2103-ay1819s2-w14-4/main/issues/116[#116]] [https://github.com/cs2103-ay1819s2-w14-4/main/issues/112[#112]] [https://github.com/cs2103-ay1819s2-w14-4/main/issues/132[#132]] [https://github.com/cs2103-ay1819s2-w14-4/main/issues/138[#138]]
 
 
 == Contributions to the User Guide

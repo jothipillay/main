@@ -220,7 +220,7 @@ public class EditProjectInfoCommandTest {
     }
 
     @Test
-    public void executeUndoRedo_projectNameInEmployeeEdited_success() throws CommandException {
+    public void execute_projectNameInEmployeeEdited_success() throws CommandException {
 
         PocketProjectBuilder builder = new PocketProjectBuilder().withProject(PROJECT_ALICE).withEmployee(BENSON)
             .withEmployee(CARL);
@@ -244,16 +244,6 @@ public class EditProjectInfoCommandTest {
             .contains(editedProject.getProjectName()));
         assertTrue(model.getPocketProject().getEmployeeList().get(1).getCurrentProjects()
             .contains(editedProject.getProjectName()));
-
-        model.undoPocketProject();
-
-        /*
-        assertTrue(model.getPocketProject().getEmployeeList().get(0).getCurrentProjects()
-            .contains(PROJECT_ALICE.getProjectName()));
-        assertTrue(model.getPocketProject().getEmployeeList().get(1).getCurrentProjects()
-            .contains(PROJECT_ALICE.getProjectName()));
-        */
-
     }
 
     @Test

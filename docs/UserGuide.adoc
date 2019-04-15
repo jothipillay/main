@@ -213,31 +213,23 @@ or click `Help` which can be found on the menu bar at the top left hand corner o
 .*Accessing help from menu bar*
 image::ug-helpcommand.png[width="400"]
 
+// tag::datefeature[]
 === Date Feature in Pocket Project
-
-In this application, a few commands involve the use of calendar dates. Examples of such
-commands include the setting of start dates and deadlines to projects and the setting of
-completion dates to projects, milestones and tasks.
 
 Whenever a particular command requires a date field, you can choose to use either of the
 below mentioned formats.
 
 ==== Fixed Date Format
 
-You can input a date using the fixed date format.
-
+You can input a date using the fixed date format. +
 Format: `DD/MM/YYYY`
 
-Examples:
+Examples: +
+1. `23/12/2019` +
+2. `09/03/2020`
 
-. `23/12/2019`
-. `09/03/2020`
-
-
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
-|image:ug-exclamation.png[width="50"]| The fixed date format follows the required `DD/MM/YYYY` format
-strictly and so `09/04/2023` is a valid input but `9/4/2023` is not.
 |image:ug-lightbulb.png[width="50"]| The year field will not accept values beyond the
 year `2099` and acts as a loose safety feature for accidental errors while inputting the year.
 |===
@@ -247,92 +239,71 @@ year `2099` and acts as a loose safety feature for accidental errors while input
 Alternatively, you can also input a date using the flexible date format. The flexible date format
 allows you to give an input with relation to the current date. It supports the below mentioned 3 formats.
 
-The 3 flexible date formats will also be demonstrated with screenshots using the of the `add project` command which requires
-a `s/START_DATE` and a `d/DEADLINE`. This is all the relevant information that you need to know for this section
-but more details about the `add project` command will be covered later in
-<<Add a project to the application: `add project`>>
-
-===== Choosing a date relative to the current day
-
+*Choosing a date relative to the current day* +
 You can key in `today`,`tomorrow` and `yesterday` to get today's, tomorrow's and
 yesterday's date respectively.
 
 Format: `today/tomorrow/yesterday`
 
-You can refer to the screenshots of the program below for a clearer picture. Assume that the
-current date is 12 April 2019 (12/04/2019).
-
-.*Using "today/tomorrow/yesterday" as a flexible date input*
-image::ug-tdytmryst.png[]
-
-===== Choosing a date relative to the current week
-You can also aim to choose a date with relation to the current week.
-
+*Choosing a date relative to the current week*
+You can also aim to choose a date with relation to the current week. +
 Format: `this/next/last week DAY_OF_WEEK`
 
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
 |image:ug-notepadpencil.png[width="40"]|The `DAY_OF_WEEK` takes an integer in the range of 1 to 7 which
 corresponds to Monday to Sunday respectively.
 |===
 
-Examples:
-
-. `this week 4` +
-This would select the current week's Thursday as the target date.
-. `next week 7` +
-This would select next week's Sunday as the target date.
-. `last week 2` +
+Examples: +
+1. `next week 7` +
+This would select next week's Sunday as the target date. +
+2. `last week 2` +
 This would select last week's Tuesday as the target date.
 
 You can refer to the screenshots of the program below for a clearer picture. Assume that the
-current date is 12 April 2019 (12/04/2019), Friday.
+current date is 12 April 2019 (12/04/2019), Friday.  It will be demonstrated using the `add project` command which requires
+a `s/START_DATE` and a `d/DEADLINE`.
 
 .*Using "this/next/last week DAY_OF_WEEK" as a flexible date input*
-image::ug-dateweek.png[]
+image::ug-dateweek.png[][width="500"]
 
-===== Choosing a date relative to the current month
-You can also aim to choose a date with relation to the current week.
+*Choosing a date relative to the current month*
 
+You can also aim to choose a date with relation to the current week. +
 Format: `this/next/last month DAY_OF_MONTH`
 
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
 |image:ug-exclamation.png[width="50"]|The `DAY_OF_MONTH` takes the value of positive integer but it cannot exceed
 the maximum number of days of a particular month in the chosen year.
 |===
 
-Examples:
-
-. `this month 24` +
-This would select the current month's 24th day as the target date.
-. `next month 17` +
+Examples: +
+1. `this month 24` +
+This would select the current month's 24th day as the target date. +
+2. `next month 17` +
 This would select next month's 17th day as the target date.
-. `last month 6` +
-This would select last month's 6th day as the target date.
+// end::datefeature[]
 
-You can refer to the screenshots of the program below for a clearer picture. Assume that the
-current date is 12 April 2019 (12/04/2019), Friday.
-
-.*Using "this/next/last month DAY_OF_MONTH" as a flexible date input*
-image::ug-monthweek.png[]
-
-
-===== Some additional information
-
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
-|image:ug-notepadpencil.png[width="50"]|You do not need to specify which format you are planning to use and the application
+|image:ug-notepadpencil.png[width="40"]|You do not need to specify which format you are planning to use and the application
 is able to differentiate it based on the input received.
 |===
 
+===== Some additional information
 The application will also automatically help to check the validity of the target
 date. Should you accidentally target an invalid dates such as `31/04/2019`, it will be rejected as the month of April
 only has 30 days. Additionally, leap years are also considered. So, as 2020 is a leap year, `29/02/2020` is considered a valid input but `29/02/2019` will be rejected
 as 2019 is not a leap year.
 
+
+
+
 === Adding an employee or project to the application: `add`
 
+// tag::addemployeefeature[]
 ==== Adding an employee to the application: `add employee`
 
 You can add an employee to the Pocket Project when a new employee joins the company/team
@@ -370,47 +341,47 @@ repository. Otherwise, the page will not load.
 by toggling the arrows on the details panel.
 |===
 
+// end::addemployeefeature[]
 
+// tag::addprojectfeature[]
 ==== Add a project to the application: `add project`
 
-You can add a project to the Pocket Project when the company/team takes on a new project
-so that the key details of the project are stored in the application and employees, milestones, tasks and user stories
+You can add a project to the Pocket Project when the team takes on a new project
+so that key details of the project are stored and employees, milestones, tasks and user stories
 can be assigned to them in the future.
 
 The project has a default description when created and this can be
-edited using <<Edits name/client/deadline/description of a project: `edit project info`>>
-
+edited using the `edit project info` command.
 
 Format: `add project n/NAME c/CLIENT_NAME s/START_DATE d/DEADLINE`
 
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
-|image:ug-lightbulb.png[width="70"]|Both the fixed and flexible date format can be used to
-select the target `START_DATE` and `DEADLINE`as shown in <<Date Feature in Pocket Project>>
-|image:ug-exclamation.png[width="70"]|The deadline of the project should minimally be 1 day after the
+|image:ug-exclamation.png[width="50"]|The deadline of the project should minimally be 1 day after the
 start of a project.
 |===
 
-//TODO edit proj description below.
-Examples:
-
-. `add project n/Apollo s/10/03/2019 d/12/12/2019 c/FairPrice`
-. `add project n/Xtreme c/John Smith s/09/02/2020 d/13/04/2020`
+Examples: +
+1. `add project n/Apollo s/10/03/2019 d/12/12/2019 c/FairPrice` +
+2. `add project n/Xtreme c/John Smith s/09/02/2020 d/13/04/2020`
 
 You can refer to the screenshot below to have a clearer picture of how it works
 and looks like.
 
 .*Adding a project to the application and what we can do with it*
-image::ug-addproject.png[]
+image::ug-addproject.png[][width="500"]
 
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
-|image:ug-lightbulb.png[width="70"]|You can also view the list of all employees currently working on the project,
+|image:ug-lightbulb.png[width="50"]|You can also view the list of all employees currently working on the project,
 a list of milestones and tasks, and a list of user stories by toggling the arrows on the details panel.
 |===
+// end::addprojectfeature[]
+
 
 === Add an employee/milestone/project task/user story to a project : `addto`
 
+// tag::addemployee[]
 ==== Add an employee to a project: `addto employee`
 
 You can add an employee to any projects already created in the Pocket Project application. You can
@@ -422,7 +393,7 @@ Format: `addto PROJECT_NAME employee EMPLOYEE_INDEX`
 
 The employee at the specified `EMPLOYEE_INDEX` is added to the project specified by the `PROJECT_NAME`.
 
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
 |image:ug-notepadpencil.png[width="40"]| The index refers to the serial number (one-based indexing) shown in
 the displayed list of employees.
@@ -451,13 +422,15 @@ and looks like.
 image::ug-addtoemployee.png[]
 
 
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
-|image:ug-lightbulb.png[width="70"]| As shown in the figure above, instead of calling
+|image:ug-lightbulb.png[width="50"]| As shown in the figure above, instead of calling
 the `list employees` command, we can simple click on the `employees` tab located at the top of the side tab panel.
 |===
 
+// end::addemployee[]
 
+// tag::addmilestone[]
 ==== Add a milestone to a project: `addto milestone`
 
 You can add a milestone to any projects already created in the Pocket Project application. Milestones are typically
@@ -468,11 +441,11 @@ created, project tasks can be assigned to it.
 Format: `addto PROJECT_NAME milestone m/MILESTONE_DESC d/MILESTONE_DATE`
 
 
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
-|image:ug-lightbulb.png[width="70"]|Both the fixed date format and the flexible date format
+|image:ug-lightbulb.png[width="50"]|Both the fixed date format and the flexible date format
 can be used to select the target `MILESTONE_DATE`. Refer to <<Date Feature in Pocket Project>>
-|image:ug-exclamation.png[width="70"]| As the milestone is part of a project's timeline, the
+|image:ug-exclamation.png[width="50"]| As the milestone is part of a project's timeline, the
 `MILESTONE_DATE` the input date cannot be before the `START_DATE` and after `DEADLINE` of the project.
 |===
 
@@ -485,7 +458,7 @@ of milestones in project "Apollo".
 The milestone with the given description and today's date will be added to the list
 of milestones in project "Orbital".
 
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
 |image:ug-notepadpencil.png[width="40"]| The list of milestones inside the target project
 will automatically be sorted by its date every time a new entry is added.
@@ -497,7 +470,12 @@ and looks like.
 .*Adding a milestone to a project*
 image::ug-addtomilestone.png[]
 
+
+// end::addmilestone[]
+
+
 //tag::daryl[]
+
 
 ==== Add a project task to a project's milestone: `addto projecttask`
 
@@ -540,8 +518,7 @@ to hide the list of tasks under the milestone.
 
 ==== Add a user story to a project: `addto userstory`
 
-You can add a user story to a project which is useful in the planning stage of a project where the implementation
-of certain features can be prioritized over others.
+You can add a user story to a project. User stories are tools used in software development to capture a description of a software feature from an end-user perspective.
 
 Format: `addto PROJECT_NAME userstory i/STORY_IMPORTANCE STORY`
 
@@ -562,13 +539,14 @@ Examples:
 |===
 |image:ug-smart.png[width="40"]| You can input the importance level or the actual user story in any order.
 |image:ug-smart.png[width="40"]| A valid user story can also be simply: `as a ... i want to...`.
+
 E.g `as a user i want to log in` is a valid user story.
 |===
 
 Upon a successful addition of a user story, you should be able to see the new user story in the list of user stories.
 You may need to toggle the buttons to get to the correct panel.
 
-Refer to the diagram below to see how the new user story is shown.
+Refer to the screenshot below to see how the new user story is shown.
 
 .User stories list showing the newly added user story
 image::addto-user-story-ui.png[width="500"]
@@ -713,9 +691,9 @@ Examples:
 
 . `view project Apollo` +
 `removefrom Apollo userstory 2` +
-Removes the user story at the 2nd position of the displayed list of user stories from Project Apollo.
+Removes the user story at the 2nd position of the list of user stories from Project Apollo.
 
-Refer to the diagram below to see the changes in the user stories list after the command above has been executed.
+Refer to the screenshots below to see the changes in the user stories list after the command above has been executed.
 
 .Before and after comparison of removing a user story
 image::removefrom-user-story-ui.png[width="600"]
@@ -793,13 +771,10 @@ also after the date of the latest milestone in the project.
 Note that there is a minor bug that does not allow 'info' as part of the argument for the description of the project (e.g. 'desc/A project info...' is not accepted). We are working hard to fix this issue soon.
 |===
 
-Below is the before and after screenshots when the command `edit project PocketProjcet info desc/A project management tool d/20/05/2019`.
+Below is the before and after screenshots of when the command `edit project PocketProject info desc/A project management tool d/20/05/2019` is entered.
 
-.Before entering the edit project command
-image::edit_project_before.png[]
-
-.After the edit project command is entered
-image::edit_project_after.png[]
+.Before and after comparison for `edit project PocketProjcet info desc/A project management tool d/20/05/2019` command
+image::edit_project_before.png[width:"300"]
 
 ==== Edit milestone of a project: `edit project milestone`
 
@@ -827,11 +802,8 @@ Below is the before and after screenshot of how the command should work. The com
 `edit project Orbital milestone 1 m/Version 1.1 refactoring d/03/08/2019` will be used to show
 this.
 
-.Before entering the edit command
+.Before and after comparison of `edit project Orbital milestone 1 m/Version 1.1 refactoring d/03/08/2019`
 image::edit_project_milestone_before.png[]
-
-.After entering the edit command
-image::edit_project_milestone_after.png[]
 
 //end::edit[]
 
@@ -861,7 +833,7 @@ Refer to the screenshot below to see how the fields of the user story has been e
 
 .Before and after comparisons of the user story's importance level
 
-image::edit-user-story-ui.png[]
+image::edit-user-story-ui.png[width="550"]
 // end::edituserstory[]
 
 //tag::find[]
@@ -919,12 +891,12 @@ Returns a list of employees who has java skill.
 . `find skill java C`
 Returns a list of employees who have either java or C or both.
 
+//end::findskill[]
+
 Below is a screenshot of what a successful find skill command will look like.
 
 .After entering `find skill java` command
 image::find_skill.png[]
-
-//end::findskill[]
 
 ==== Find projects in the application: `find project`
 
@@ -942,7 +914,7 @@ Below is a screenshot of what a successful find project command will look like.
 .After entering `find project apollo` command
 image::find_project.png[]
 
-//tag::findall+deadline[]
+//tag::findall[]
 
 ==== Find projects with any keywords: `find all`
 
@@ -953,13 +925,16 @@ Format: `find all KEYWORDS [MORE KEYWORDS]`
 Examples:
 
 . `find all software food`
-Returns a list of projects which contains either software or food or both.
+Returns a list of projects which contains either software or food or both as part of the name/description/client.
 
 Below is a screenshot of what a successful find all command will look like.
 
 .After entering `find all management` command
 image::find_all 1.png[]
 
+//end::findall[]
+
+//start::finddeadline[]
 ==== Find projects with deadline: 'find deadline'
 
 In order to manage your workload and be aware of the upcoming deadline, you can find all the project which will be due before a certain date.
@@ -971,7 +946,7 @@ Examples:
 . `find deadline 15/04/2019` +
 Returns a list of projects which has 15/04/2019 as the deadline or has deadlines that are before 15/04/2019
 
-//only for find deadline
+
 [width="1000",cols="100,<900"]
 |===
 |image:ug-exclamation.png[width="50"]|
@@ -980,12 +955,13 @@ Only accept one argument. e.g. will not accept `find deadline 15/04/2019 20/12/2
 Accepts both flexible date and calender date
 |===
 
+//end::finddeadline[]
+
 Below is a screenshot of what a successful find project command will look like.
 
 .After entering `find deadline this month 31` command
 image::find_deadline.png[]
 
-//end::findall+deadline[]
 
 //end::find[]
 

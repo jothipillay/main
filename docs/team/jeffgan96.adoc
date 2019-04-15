@@ -5,11 +5,11 @@
 
 == About PocketProject
 
-PocketProject is a project developed by my team and I as part of our Software Engineering Project. Our team decided to morph the original codebase given to us into a project management plus employee management software to help software engineering project managers keep track of their projects and employees. In particular, some notable features PocketProject provides includes recording of milestones, user stories amongst other parts of a project as well as recording details of an employee such as their skillsets and GitHub profile.
+PocketProject is a project developed by my team and I as part of our Software Engineering Project. Our team decided to morph the original codebase given to us into a project management plus employee management software to help software engineering project managers keep track of their projects and employees. In particular, some notable features PocketProject provides includes recording of milestones, user stories, employees information as well as a statistics feature for managers.
 
 == Before we begin
 
-Lets start by taking a look at some of the common notations, technical terms as well as symbols used throughout this document.
+Lets start by taking a look at some of the common notations, technical terms as well as symbols used throughout this document:
 
 |===
 |What you see |What it means
@@ -30,6 +30,8 @@ need to take note.
 | The grey-highlighting, also known as a `markup`, is used to represent code snippets or commands a user can enter in Pocket Project
 |===
 
+
+
 == Summary of contributions
 
 This section contains a summary of my various contributions to the project, ranging from coding to documentation and other helpful contributions I made.
@@ -37,7 +39,7 @@ This section contains a summary of my various contributions to the project, rang
 * *A feature I developed*: The ability to manage *user stories in a project*.
 ** What it does: This feature is supported by several commands, which allows a user to add and remove user stories from a project. In addition, a user can also update the progress status of a user story, as well as edit the details of a user story.
 ** Why its important: User stories are integral to projects and thus its important to be able to record and keep track of them. Being able to see the progress of different user stories can give a good gauge of the progression of the whole project and whether its on track, as well as allow prioritisation of different enhancements to prioritise based on how important the user story is.
-** Highlights: This enhancement makes use of a unique parsing method which allows users to be able to be flexible in entering input yet allow proper processing of the input to be able to show up elegantly on the UI. In addition, it uses an implicit sort function to sort the user stories by order of importance.
+** Highlights: This enhancement makes use of a unique parsing method which allows users to be able to be flexible in entering input yet allow proper processing of the input to be able to show up elegantly on the UI. In addition, it arranges the user stories by order of their importance for ease of readability.
 
 * *Code contributed*: [https://nus-cs2103-ay1819s2.github.io/cs2103-dashboard/#=undefined&search=jeffgan96[RepoSense]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/124[Functional code]] [https://github.com/cs2103-ay1819s2-w10-2/main/pull/126[Test code]]
 
@@ -68,7 +70,7 @@ This section contains a summary of my various contributions to the project, rang
 
 == Contributions to the User Guide
 
-In this section, I will showcase some of my contributions to the User Guide to demonstrate my ability to write documentation targetting users of Pocket Project. Note that the snippets shown here are not an exhaustive list of all my contributions.
+In this section, I will showcase some of my contributions to the User Guide to demonstrate my ability to write documentation targetting users of Pocket Project. For a complete list of the documentation I wrote, you may refer to our User Guide: [https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/UserGuide.adoc]
 
 include::../UserGuide.adoc[tag=adduserstory]
 include::../UserGuide.adoc[tag=removeuserstory]
@@ -77,11 +79,10 @@ include::../UserGuide.adoc[tag=updateuserstory]
 == Contributions to the Developer Guide
 
 In this section, I will showcase some of my contributions to the Developer's Guide to demonstrate my ability to write technical documentation. For a complete list of the documentation I wrote, you may refer
-to our Developer's Guide: [https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/DeveloperGuide.adoc]
+to our Developer Guide: [https://github.com/cs2103-ay1819s2-w10-2/main/blob/master/docs/DeveloperGuide.adoc]
 
 include::../DeveloperGuide.adoc[tag=ui]
 include::../DeveloperGuide.adoc[tag=adduserstory]
-include::../DeveloperGuide.adoc[tag=removeuserstory]
 include::../DeveloperGuide.adoc[tag=edituserstory]
 include::../DeveloperGuide.adoc[tag=updateuserstory]
 include::../DeveloperGuide.adoc[tag=designandfuture]

@@ -22,7 +22,6 @@ import static seedu.address.testutil.TypicalProjects.PROJECT_ZULU;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddProjectCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -79,11 +78,6 @@ public class AddProjectCommandSystemTest extends PocketProjectSystemTest {
 
         showProjectsWithName(KEYWORD_MATCHING_YANKEE);
         assertCommandSuccess(PROJECT_XAVIER);
-
-        /* ------------------------ Perform add operation while a project card is selected ------------------------- */
-
-        /* Case: selects first card in the project list, add a project -> added, card selection remains unchanged */
-        viewProject(Index.fromOneBased(1));
         assertCommandSuccess(PROJECT_VICTOR);
 
         /* ----------------------------------- Perform invalid add project operations ------------------------------ */

@@ -334,194 +334,125 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 == Implementation of Key Features
 This section describes some noteworthy details on how certain features are implemented.
 
-=== Pocket Project Dates
-
-As expected, when it comes to a project manager application, the use of dates are used
-extensively in other features and commands throughout the application. These include,
-
-. The setting of `START_DATE` and  `DEADLINE` when adding a project to the Pocket Project application.
-. The setting of `MILESTONE_DATE` when adding a milestone to a particular project.
-. The setting of `COMPLETION_DATE` when completing a particular project.
-. The editing of the above mentioned dates after it has been set.
-. The finding of projects that are due by a certain `DEADLINE`.
-
-==== What is Supports
-
-As it is widely used, it is important that the user is able to easily input any target date but at the same time
-retain some flexibility so that the feature is more user-friendly.
-
-So, keeping that in mind, the dates used in the Pocket Project supports 2 main formats, the Fixed Date Format, which supports 1 main sub-type, and the Flexible Date Format,
-which supports 3 main sub types, all of which are explained below in the following section. A total of 4 sub-types are supported
-across 2 formats and choosing any 1 of 4 will be accepted as a suitable input.
-
-==== How it is Implemented
-===== Fixed Date Format
-
-Format: `DD/MM/YYYY`
-
-Examples:
-
-. `23/12/2019`
-. `09/03/2020`
-
-[width="100%",cols="35%,<65%"]
-|===
-|image:ug-exclamation.png[width="60"]| The fixed date format follows the required `DD/MM/YYYY` format
-strictly and so `09/04/2023` is a valid input but `9/4/2023` is not.
-|===
-
-===== Fixed Date Format: How it Works (Part 1)
-The input is parsed and the validity of the format is determined through the use of a regex as follows:
-
-Validation Regex = `"(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((20)\d\d)"`
-
-
-
-
-===== Flexible Date Format
-
-[width="100%",cols="30%,25%,<45%"]
-|===
-|Format |Chooses the date relative to the ... |Examples
-
-|`today/tomorrow/yesterday`
-|current day
-|`tomorrow` +
-This would select tomorrow's date as the target date.
-
-|`this/next/last week DAY_OF_WEEK`
-|current week
-|`next week 7` +
-This would select next week's Sunday as the target date.
-
-|`this/next/last month DAY_OF_MONTH`
-|current month
-|`last month 6` +
-This would select last month's 6th day as the target date.
-|===
-
-[width="100%",cols="35%,<65%"]
-|===
-|image:ug-notepadpencil.png[width="40"]|The `DAY_OF_WEEK` takes an integer in the range of 1 to 7 which
-corresponds to Monday to Sunday respectively.
-|===
-
-[width="100%",cols="35%,<65%"]
-|===
-|image:ug-exclamation.png[width="60"]|The `DAY_OF_MONTH` takes the value of positive integer but it cannot exceed
-the maximum number of days of a particular month in the chosen year.
-|===
-
-===== Flexible Date Format: How it Works (Part 1)
-
-
-
-
-===== Date Formats: How it Works (Part 1)
-==== How it is Implemented
-
-This feature was mainly facilitated by the Java LocalDateTime class and the model and logic component of the Pocket
-Project application.
-
-
-// skill::jothiAddTo[]
-=== Adding Employees and Milestones to a Project
+// tag::datefeature[]
+=== Pocket Project Dates (Smart Dates)
 ==== Overview
 
-This feature focuses on the adding of employees and milestones to a selected project.
-This feature supports two commands which are explained below.
+As dates are widely used throughout the application, it is important that the user is able to easily input any target date but at the same time
+retain some flexibility so that it is more user-friendly. Therefore, the dates used in the Pocket Project supports 2 main formats as shown below.
 
-*Add Employee To Project Command Overview*
+*Fixed Date Format*
+Format(s): +
+1. `DD/MM/YYYY`
 
-* `addto PROJECT_NAME employee EMPLOYEE_INDEX` +
-
-Adds the employee at index `EMPLOYEE_INDEX` in the displayed list of employees to the list of employees in the project named `PROJECT_NAME`.
-
-[width="1000",cols="100,<900"]
-|===
-|image:ug-exclamation.png[width="50"]| The `PROJECT_NAME` entered must be valid and must already exist in the application.
-|image:ug-exclamation.png[width="50"]| The `EMPLOYEE_INDEX` given must refer to some existing employee in the application.
-|===
-
-*Add Milestone To Project Command Overview*
-
-* `addto PROJECT_NAME milestone m/MILESTONE_DESCRIPTION d/MILESTONE_DATE`
-
-Adds the milestone specified in `m/MILESTONE_DESCRIPTION` and `MILESTONE_DATE` to the list of milestones in the project named `PROJECT_NAME`.
-
-[width="1000",cols="100,<900"]
-|===
-|image:ug-exclamation.png[width="50"]| The `MILESTONE_DESCRIPTION` must not be empty or contain only whitespaces.
-|image:ug-exclamation.png[width="50"]| The `MILESTONE_DATE` given must conform to either the Fixed or Flexible Date Format.
-See <<Pocket Project Dates>>.
-|===
+*Flexible Date Format*
+Format(s): +
+1.`today/tomorrow/yesterday` +
+2.`this/next/last week DAY_OF_WEEK` +
+3.`this/next/last month DAY_OF_MONTH`
 
 ==== How it Works
 
-These 2 commands are actually similar in nature and both of them are mainly facilitated
-by the model component of the Pocket Project application.
+The section details how a fixed and flexible date format is parsed and processed.
 
-* `Model#addEmployeeTo(Project, Employee)`
-* `Model#addMilestoneTo(Project, Milestone)`.
+.Activity Diagram: Showing how a fixed and flexible date format is parsed and processed.
+image::dg-activitydiagdate.png[width="500"]
 
-These 2 methods only take in the Project and Employee/Milestone as arguments as the correct Employee/Milestone object would be located by
-`AddEmployeeToCommand#excute()`, `AddMilestoneToCommand#execute()` before `Model#addEmployeeTo(Project, Employee)`
-and `Model#addMilestoneTo(Project, Milestone)` is called.
+Refer to the Activity Diagram above while reading the summary below so as to have a visual
+representation of what happens.
 
-===== Example Usage Scenario
+To simplify the explanation, the process can be summarized into the following key points: +
+1.  A check is first made to determine if the input is a fixed or flexible date format. This is done by
+checking for the presence of a `/` in the input. +
+2. If it is a fixed format input, a check is made to determine if it conforms to the `DD/MM/YYYY` format. +
+3. If it is a flexible format input, the input is parsed and the `PocketProjectParser` identifies keywords to determine the appropriate methods to call from the model. The target
+date is then formatted into the `DD/MM/YYYY` format. +
+4. Regardless of the initial format of the input, the current string would represent the form
+of `DD/MM/YYYY` at this stage. The validity of the date is then checked.
 
-Given below is an example usage scenario and how the addition of employee/milestone to a project feature behaves at each step.
+Refer to the code snippet below to see how the validity of the date is verified.
 
-*Add Employee To Project Command Usage Scenario*
+.Code snippet showing verification of a validity of a date.
+image::dg-codesnippet.png[width="500"]
 
-. The user enters the command `list employees`.
-.. The app displays the list of employees in the Pocket Project by executing the `list` command.
+As can be seen above, the code not only checks if the selected day falls within the maximum number of days
+in a month, but it also checks for leap years. This ensures that only valid calendar dates are accepted
+as a viable input.
 
-. The user enters `addto Apollo employee 1`.
-.. The `LogicManager` passes the entered string to the `PocketProjectParser`.
-.. The `PocketProjectParser` parses the string received and uses the `addto` keyword to identify that the input
-is linked with the `AddToCommand` class.
-.. The rest of the string is then passed to the `AddToCommandParser` to identify the type of `AddToCommand`
-that is being executed and the arguments involved.
-.. The `AddToCommandParser` then creates the `AddEmployeeToCommand` object and this is passed on to the `LogicManager` for execution.
-.. The command execution will check the validity of the arguments and then call the methods of the `Model` component to add the corresponding
-employee to the project.
+==== Design Considerations
 
-Refer to the sequence diagram below to better understanding how the `AddEmployeeTo` Command
-works.
+*Potential Design 1* +
+User keys in  `Wednesday`, `next Wednesday`, `last Wednesday` to denote the current, next and last week's Wednesday respectively
 
-.How the Add Employee To Command Works
+*Potential Design 2 (Selected Implementation)* +
+User keys in  `this week 3`, `next week 3`, `last week 3`  to denote the current, next and last week's Wednesday respectively
+
+The second design was chosen as the first one is subjective to an individual's language
+use. For example, if today was Monday, and a person was to mention `next Wednesday`, some people may be thinking of the Wednesday in 2 days time
+whereas others may be thinking of next week's Wednesday. Thus to remove confusion, the keyword this/next/last was added. In addition, instead of spelling out the days,
+users can key in the day number instead. This speeds things up and also reduces errors due to spelling mistakes in the name of the day.
+// end::datefeature[]
+
+// tag::addtoemployeemilestone[]
+
+=== Adding Employees and Milestones to a Project
+==== Overview
+
+This feature focuses on the adding of employees and milestones to a selected project. It supports two commands which are explained below.
+
+1. `addto PROJECT_NAME employee EMPLOYEE_INDEX` +
+Adds the employee at index `EMPLOYEE_INDEX` to the list of employees in the project named `PROJECT_NAME`.
+2. `addto PROJECT_NAME milestone m/MILESTONE_DESCRIPTION d/MILESTONE_DATE` +
+Adds the specified milestone to the list of milestones in project named `PROJECT_NAME`.
+
+In addition, the `AddToEmployeeCommand` class and `AddToMilestoneCommand` class is
+abstracted into a `AddToCommand` class which inherits from `Command` class. This allows for
+further `AddTo` functionalities to be added while conforming to the Open-Closed Principle.
+
+Refer to the Class Diagram below for a better visualization of the inheritance relationship.
+
+.Class Diagram: Showing inheritance relationship between the commands.
+image::dg-addtoclassdiagram.png[width="700"]
+
+==== How it Works
+
+The section details how a `AddToCommand` is parsed and processed.
+
+.Sequence Diagram: How the Add Employee To Command Works
 image::dg-addemployeeto.png[width="1000"]
 
-*Add Milestone To Project Command Usage Scenario*
+Refer to the sequence diagram above to better understand how the `AddEmployeeTo` Command
+works. The diagram shows the sequence when a `addto Apollo employee 1` is executed.
 
-. The user enters the command `addto Apollo milestone m/MILESTONE_DESCRIPTION d/MILESTONE_DATE`.
-.. The rest of the execution process is similar to Step 2 of the *Add Employee To Command* mentioned above except that
-an `AddMilestoneToCommand` object is created instead in Step 2d and the corresponding milestone is added to the
-project in Step 2e.
+To simplify the explanation, the process can be summarized into the following key points: +
+1. The `PocketProjectParser` parses the string received and uses the `addto` keyword to identify that the input
+is linked with the `AddToCommand` class. +
+2. The `AddToCommandParser` then identifies the type of `AddToCommand` that is being executed and the arguments involved. +
+3. The `AddToCommandParser` then creates the `AddEmployeeToCommand`/`AddMilestoneToCommand` object and this is passed on to the `LogicManager` for execution. +
+4. The command execution will check the validity of the arguments and then call the methods of the `Model` component to add the corresponding
+employee/milestone to the project.
 
-[width="1000",cols="100,<900"]
+[width="300",cols="100,<200"]
 |===
-|image:ug-smart.png[width="60"]| With reference to the above usage scenarios, the main difference is deciding the object
-to be added (Employee or Milestone) based on the user input
+|image:ug-lightbulb.png[width="50"]| The main difference between the 2 commands is deciding the object
+to be added (Employee or Milestone) from model based on the user input.
 |===
 
 ==== Design Considerations
 
 *Potential Design 1* +
-Have only 1 parser where the `PocketProjectParser` receives and parses the whole input string
+The idea is to have only 1 parser ,`PocketProjectParser`, which receives and parses the whole input string
 before constructing the relevant command.
 
 *Potential Design 2 (Selected Implementation)* +
-Have a total of 2 parsers, the first being `PocketProjectParser` which uses the `addto` key word to
-identify that it is a `AddToCommand` command. The rest of the input string minus the `addto` keyword is then parsed by the second
-parser which is the  `AddToCommandParser`.
+The idea is to have a total of 2 parsers where the first parser, `PocketProjectParser` identifies the `addto` key word
+and the rest of the input string is then parsed by the corresponding second parser, `AddToCommandParser`.
 
 The 2nd design was chosen as there is better abstraction of the details and it also allows further functionality
 to be add on top of the implemented parser. If future developers want to add more objects to the project, they can simply
 make use of this `AddToCommandParser` to handle different inputs. Choosing this design was a good choice as it helped with the
-implementation of adding user stories and project tasks to a project after this was initially constructed. Refer to <<User Story feature>>
-and <<Project Task feature>> to learn more about these features.
+implementation of adding user stories and project tasks to a project after this was initially constructed.
+// end::addtoemployeemilestone[]
 
 ==== Future Planned Implementations
 
@@ -535,8 +466,6 @@ input as such:
 ** `addto PROJECT_NAME ms m/MILESTONE_DESCRIPTION d/MILESTONE_DATE` instead of `addto PROJECT_NAME milestone m/MILESTONE_DESCRIPTION d/MILESTONE_DATE`
 
 The commands will be processed in the same way without any other changes.
-
-// end::jothiAddTo[]
 
 // skill::removefrom[]
 //tag::removefrom_dg[]
@@ -590,7 +519,7 @@ There will also be less clutter in `PocketProjectParser` as there are already a 
 //end::removefrom_dg[]
 // end::removefrom[]
 
-//tag::editproject1[]
+//tag::editproject[]
 
 === Edit Project feature
 ==== Current Implementation
@@ -603,35 +532,30 @@ This feature allows editing of several components which are under project and is
 
 The `EditProjectCommand Parser` differentiate these 3 commands based on the `COMMAND_KEYWORD` which are info, milestone and userstory.
 
-//eng::editproject1[]
-
 .Class diagram showing inheritance for `EditCommand`
-image:edit_command_class_diagram.png[width:"300"]
+image::edit_command_class_diagram.png[width:"300"]
 
-All the 3 commands are inherited from the `EditProjectCommand`. This allows flexibility as more edit project command can be easily added when there are new components added to the project.
+All these 3 commands are inherited from the `EditProjectCommand` as shown in the diagram above. This allows flexibility as more edit project command can be easily added when there are new components added to the project.
 
-//editproject2[]
 The following sequence diagram shows how `edit project info` command works:
 
 .Sequence diagram for `edit project Apollo info n/Gemini d/12/05/2019`
-image:edit_project_sequence_diagram.png[width:"800"]
+image::edit_project_sequence_diagram.png[width:"800"]
 
-Given below is the explanation of what happens when the user enter the `edit project info` command based on the diagram above:
+Given below is the explanation of what happens when the user enter the `edit project Apollo info n/Gemini d/12/05/2019` command based on the diagram above:
 
 . User executes `edit project Apollo info n/Gemini d/12/05/2019` to edit name and deadline of the project named Apollo.
 . `PocketProjectParser` will identify the command as an `EditCommand` based on the word `edit` and pass on the argument to the EditCommandParser.
-. `EditCommandParser` will identify the command as a `EditProjectCommand` based on the word `project` and pass it onto `EditProjectCommandParser`
-. `EditProjectCommandParser` then identify the command as a `EditProjectInfoCommand` based on the word `info` and create the respective command and return it back to the `LogicManager`
-. `LogicManager` then execute the command. Validity of the arguments are checked here as well. The method `Model#setProject(projectToEdit, editedProject)` is called to replace the old project with the edited project with the new parameters.
+. Similarly the arguments will continue to parse through `EditCommandParser` and `EditProjectCommandParser` which will identify the command as `EditProjectInfoCommand` and return it back to the `LogicManager`
+. `LogicManager` then execute the command. Validity of the arguments are checked here as well. The method `Model#setProject(projectToEdit, editedProject)` is called to replace the old project with the edited project which contains the new parameters.
 This method also update the list of project names in the employees who are assigned to project Apollo.
-.  Finally, the project Apollo is edited and the details showing on the ui are updated as well.
-
+.  Finally, the project Apollo is edited and the updated details are shown on the UI.
 |===
 |image:ug-notepadpencil.png[width="40"]|
 If the arguments provided are invalid, a `CommandException` will be thrown and error message will be shown.
 |===
 
-The working mechanism behind `EditProjectMilestoneCommand` is similar as well. Instead of replacing the whole project, only the milestone list in the project is edited by replacing the milestone at the given index through `Model#setMilestone(milestoneToEdit, editedMilestone)` method.
+The working mechanism behind `EditProjectMilestoneCommand` is similar as well. Instead of replacing the whole project, only the milestone list in the project is edited by replacing the milestone at the given index through the `Model#setMilestone(milestoneToEdit, editedMilestone)` method.
 
 ==== Design Consideration
 ===== Aspect how to structure the classes under edit command
@@ -641,7 +565,7 @@ Alternative 1: Have a single edit project command that allow users to edit all t
 Alternative 2: Have several separate commands that edit different parts of the project (current implementation)
 
 For alternative 1, the user will not need to remember many commands just to edit the project. However since there are a lot of components in the project,
-different prefixes will be needed for different component so that the parser can identify which component to edit. There are also overlapping attributes in the
+different prefixes will be needed for different components so that the parser can identify which component to edit. There are also overlapping attributes in the
 components such as milestone date and project deadline or milestone description and project description. Therefore it is going to be messy in terms of code
 as well as in terms of usage of the command.
 
@@ -649,7 +573,6 @@ Even though alternative 2 involves having to remember different commands, it can
 the command format for current implementation is quite intuitive. The user just need to specify `edit project` then add in name of the project to edit and the components the user wish to edit.
 Thus, alternative 2 is chosen as it is less confusing both in term of code and usage and can be tweaked to make the command user-friendly.
 
-//end::editproject2[]
 //end::editproject[]
 
 // tag::find[]
@@ -663,7 +586,10 @@ For the current `find` feature, there are 5 main commands that the user can exec
     . `find all [KEYWORDS]` - display projects which contains words matching the keywords
     . `find deadline KEYWORD` - display projects which contains deadline before the keyword
 
-The `FindCommandParser` differentiate these 5 commands based on the `COMMAND_KEYWORDS` entered by the users (e.g. employee/project/skill/all/deadline).
+The `FindCommandParser` differentiates these 5 commands based on the `COMMAND_KEYWORDS` entered by the users (e.g. employee/project/skill/all/deadline) as illustrated in the diagram below.
+
+.Activity diagram on behavior of `FindCommandParser`
+image::find_parser_activity.png[]
 
 The following sequence diagram shows how the `find employee` command works:
 
@@ -674,7 +600,7 @@ Usage Scenario example for `find employee`:
 
 . User executes `find employee John` to look for employees whose names contains the word 'John'.
 . `PocketProjectParser` will parse and identify the command as a `FindCommand` and pass on the argument `employee John` to `FindCommandParser`.
-. `FindCommandParser` identify the command based on the `COMMAND_KEYWORD` employee.
+. `FindCommandParser` identify the command based on the `COMMAND_KEYWORD` 'employee'.
 . `find employee` command is executed. Employees with name consisting the keywords are filtered out from the employeelist. The filtering is done through the use of `ProjectNameContainsKeywordPredicate` that checks through the names of the employee int the application.
 . Finally, the `filteredEmployees` list which is the list displayed on the ui is updated.
 
@@ -682,7 +608,7 @@ The working mechanism for `find project` is similar to `find employee`. Instead 
 
 For `find all` command, the predicate is used to check for the matching keywords in the project name , description and client, thereby filtering out any projects that contains the keyword in these components of the project.
 
-For `find skill` command, the `List<Skills>skills` from employee is retrieved as a `String` to match against the keywords. Then the matched employees are filtered and displayed on the ui.
+For `find skill` command, the `List<Skills>skills` from the employee is retrieved as a `String` to match against the keywords. Then the matched employees are filtered and displayed on the ui.
 
 `find deadline` uses the `ProjectContainsDeadlinePredicate` to compare the deadline of the project against the supplied deadline and filter out the projects with deadline earlier or same as the deadline supplied by the user.
 
@@ -831,7 +757,7 @@ It takes in the project and user story as arguments. After checking that the `PR
 
 Given below is an example usage scenario and how the addition of user story to a project behaves at each step.
 
-Step 1. The user enters the command `list project'. The app displays the list of projects in the Pocket Project by executing the `list project` command.
+Step 1. The user enters the command `list project`. The app displays the list of projects in the Pocket Project by executing the `list project` command.
 
 Step 2. The user enters `addto Apollo userstory i/1 as a user i want to view user stories so that i can track them`. The `LogicManager` passes the string into the `PocketProjectParser` which detects it as a `AddToCommand`. It then passes the string to the `AddToCommandParser`
 which creates an `AddUserStoryTo` command. The `LogicManager` then checks for the validity of the user story and executes the `Model#addUserStoryTo(Project, UserStory)` method to add the new user story.
@@ -887,7 +813,7 @@ image::edit_user_story_sequence_diagram.png[width="1000"]
 
 Given below is an example usage scenario and how the editing of a user story behaves at each step.
 
-Step 1. The user enters the command `view project Apollo'. The app displays the list of details of the project named "Apollo" by executing the `view` command.
+Step 1. The user enters the command `view project Apollo`. The app displays the list of details of the project named "Apollo" by executing the `view` command.
 
 Step 2. The user can use the buttons in the details panel to scroll to the panel showing the user stories.
 
@@ -916,7 +842,7 @@ image::update_user_story_sequence_diagram.png[width="1000"]
 
 Given below is an example usage scenario of how the updating of a user story behaves at each step.
 
-Step 1. The user enters the command `view project Apollo'. The app displays the list of details of the project named "Apollo" by executing the `view` command.
+Step 1. The user enters the command `view project Apollo`. The app displays the list of details of the project named "Apollo" by executing the `view` command.
 
 Step 2. The user can use the buttons in the details panel to scroll to the panel showing the user stories.
 
