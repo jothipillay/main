@@ -1,14 +1,17 @@
 package seedu.address.model.project;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.logging.Level.FINE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.project.exceptions.DuplicateMilestoneException;
 import seedu.address.model.project.exceptions.MilestoneNotFoundException;
 import seedu.address.model.util.PocketProjectDate;
@@ -27,6 +30,7 @@ import seedu.address.model.util.PocketProjectDate;
  */
 public class UniqueMilestoneList implements Iterable<Milestone> {
 
+    private static final Logger logger = LogsCenter.getLogger(UniqueMilestoneList.class);
     private static final int OFFSET = 1;
 
     private final ObservableList<Milestone> internalList = FXCollections.observableArrayList();
@@ -58,6 +62,7 @@ public class UniqueMilestoneList implements Iterable<Milestone> {
             }
         };
         internalList.sort(comparator);
+        logger.log(FINE, "Added new milestone: " + toAdd.getMilestoneDescription() + toAdd.getDate());
     }
 
     /**

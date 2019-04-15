@@ -1,11 +1,16 @@
 package seedu.address.model.util;
 
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.PocketProject;
+
 import static java.util.Objects.requireNonNull;
+import static java.util.logging.Level.FINE;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
+import java.util.logging.Logger;
 
 /**
  * The class that it used to present all date objects used throughout the application
@@ -89,6 +94,8 @@ public class PocketProjectDate {
     private static final int LAST = -1;
     private static final int LENGTH_OF_WEEK = 7;
     private static final int NEXT = 1;
+
+    private static final Logger logger = LogsCenter.getLogger(PocketProjectDate.class);
 
     public final String date;
 
@@ -348,6 +355,7 @@ public class PocketProjectDate {
         sb.append(DATE_IDENTIFIER);
         sb.append(year);
 
+        logger.log(FINE, "Generated date: " + day + "/" + month + "/" + year);
         return sb.toString().trim();
     }
 

@@ -1,15 +1,19 @@
 package seedu.address.model.employee;
 
 import static java.util.Objects.requireNonNull;
+import static java.util.logging.Level.FINE;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.employee.exceptions.DuplicateEmployeeException;
 import seedu.address.model.employee.exceptions.EmployeeNotFoundException;
+import seedu.address.model.project.UniqueMilestoneList;
 
 /**
  * A list of employees that enforces uniqueness between its elements and does not allow nulls.
@@ -23,6 +27,8 @@ import seedu.address.model.employee.exceptions.EmployeeNotFoundException;
  * @see Employee#isSameEmployee(Employee)
  */
 public class UniqueEmployeeList implements Iterable<Employee> {
+
+    private static final Logger logger = LogsCenter.getLogger(UniqueEmployeeList.class);
 
     private final ObservableList<Employee> internalList = FXCollections.observableArrayList();
     private final ObservableList<Employee> internalUnmodifiableList =
@@ -56,6 +62,8 @@ public class UniqueEmployeeList implements Iterable<Employee> {
             throw new DuplicateEmployeeException();
         }
         internalList.add(toAdd);
+        logger.log(FINE, "Added new employee: " + toAdd.getEmployeeName() + toAdd.getPhone()
+            + toAdd.getGithub() + toAdd.getEmail() + toAdd.getSkills());
     }
 
     /**
