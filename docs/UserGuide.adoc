@@ -381,7 +381,16 @@ a list of milestones and tasks, and a list of user stories by toggling the arrow
 
 === Add an employee/milestone/project task/user story to a project : `addto`
 
+
+[width="1000",cols="100,<900"]
+|===
+|image:ug-exclamation.png[width="70"]|
+Note that 'milestone', 'userstory', 'projecttask' are reserved words so they are not accepted as part of the argument for the description of respective components
+|===
+
+
 // tag::addemployee[]
+
 ==== Add an employee to a project: `addto employee`
 
 You can add an employee to any projects already created in the Pocket Project application. You can
@@ -768,7 +777,7 @@ Both the fixed date format and the flexible date can be used here to edit the de
 Note that the start date is unmodifiable and the deadline should be after the start date of the project and
 also after the date of the latest milestone in the project.
 |image:ug-exclamation.png[width="70"]|
-Note that there is a minor bug that does not allow 'info' as part of the argument for the description of the project (e.g. 'desc/A project info...' is not accepted). We are working hard to fix this issue soon.
+Note that 'info' is a reserved word so it is not accepted as part of the argument for the description of the project (e.g. 'm/project info' is not accepted).
 |===
 
 Below is the before and after screenshots of when the command `edit project PocketProject info desc/A project management tool d/20/05/2019` is entered.
@@ -795,7 +804,7 @@ The date of the milestone must be between the start date and the deadline of the
 |image:ug-exclamation.png[width="50"]|
 A blank input for milestone description will not be accepted as an input. (e.g. `edit milestone m/`)
 |image:ug-exclamation.png[width="50"]|
-Note that there is a minor bug that does not allow 'milestone' as part of the argument for the description of the milestone (e.g. 'm/A milestone for ui' is not accepted). We are working hard to fix this issue soon.
+Note that 'milestone' is a reserved word so it is not accepted as part of the argument for the description of the milestone (e.g. 'm/A milestone for ui' is not accepted).
 |===
 
 Below is the before and after screenshot of how the command should work. The command
@@ -827,6 +836,8 @@ Examples:
 |===
 |image:ug-smart.png[width="60"]|
 You can also remove an existing reason from a user story by typing `nil` as the new user story reason.
+|image:ug-exclamation.png[width="70"]|
+Note that 'userstory' is a reserved word so it is not accepted as part of the argument for the story of the project (e.g. 'm/project userstory' is not accepted).
 |===
 
 Refer to the screenshot below to see how the fields of the user story has been edited when the command `edit project Apollo userstory 1 i/2` is executed.

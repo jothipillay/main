@@ -550,6 +550,8 @@ Given below is the explanation of what happens when the user enter the `edit pro
 . `LogicManager` then execute the command. Validity of the arguments are checked here as well. The method `Model#setProject(projectToEdit, editedProject)` is called to replace the old project with the edited project which contains the new parameters.
 This method also update the list of project names in the employees who are assigned to project Apollo.
 .  Finally, the project Apollo is edited and the updated details are shown on the UI.
+
+[width="1000",cols="100,<900"]
 |===
 |image:ug-notepadpencil.png[width="40"]|
 If the arguments provided are invalid, a `CommandException` will be thrown and error message will be shown.
